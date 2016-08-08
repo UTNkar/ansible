@@ -1,2 +1,4 @@
 host_vars/*
 !host_vars/example.utn.se
+
+*.retry
