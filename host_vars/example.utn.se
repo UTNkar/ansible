@@ -1,0 +1,3 @@
+---
+# For each host a file needs to be created with YOUR password
+ansible_become_pass: "PASSWORD"
