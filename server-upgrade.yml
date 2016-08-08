@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   tasks:
-   - name: updates a server
+   - name: update apt cache
      apt: update_cache=yes
-   - name: upgrade a server
-     apt: upgrade=safe
+   - name: upgrade all packages
+     apt: upgrade=dist
