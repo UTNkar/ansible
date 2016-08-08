@@ -1,0 +1,15 @@
+# vim: et:sw=2:ts=2:
+---
+admin_groups: 'sudo'
+
+# users
+users:
+  - name: 'jdekker',
+    groups: "{{ admin_groups }}"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/jdekker.pub') }}"
+    hosts:
+      - "turing.utn.se"
+      - "babbage.utn.se"
+
+old_users:

@@ -1,0 +1,7 @@
+---
+#delete any users in the old_users list
+- name: remove unauthorized user accounts
+  user:
+    name: "{{item}}"
+    state: absent
+  with_items: old_users
