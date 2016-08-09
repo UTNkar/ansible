@@ -1,0 +1,40 @@
+---
+- name: Install dependencies
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - nginx
+    - postgresql
+    # For PostgreSQL ansible support
+    - python-psycopg2
+    - php-fpm
+    - php-mbstring
+    - php-pgsql
+    - php-gd
+
+- become: yes
+  become_user: postgres
+  include: create_db.yml
+
+- name: Download Limesurvey package
+  get_url: url={{ limesurvey.url }} dest=/tmp/{{ limesurvey.package }}
+
+- name: Ensures web_root dir exists
+  file: path={{ limesurvey.web_root }} state=directory group=www-data
+
+- name: Extract Limesurvey package
+  unarchive: copy=no src=/tmp/{{ limesurvey.package }} dest={{ limesurvey.web_root }} owner=root group=www-data creates={{ limesurvey.web_root }}/limesurvey
+
+- name: Fix permissions
+  file: path={{ limesurvey.web_root }}/{{ item }} owner=www-data recurse=yes
+  with_items:
+    - limesurvey/tmp
+    - limesurvey/upload
+    - limesurvey/application/config
+
+- name: Add NGINX configuration
+  template: src=limesurvey_nginx.j2 dest=/etc/nginx/sites-available/{{ limesurvey.fqdn }}
+
+- name: Enable NGINX configuration
+  file: path=/etc/nginx/sites-enabled/{{ limesurvey.fqdn }} src=/etc/nginx/sites-available/{{ limesurvey.fqdn }} state=link
+  notify:
+    - reload nginx

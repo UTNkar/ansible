@@ -1,3 +1,6 @@
 [webservers]
 turing.utn.se
 babbage.utn.se
+
+[application]
+turing.utn.se

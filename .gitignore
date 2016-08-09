@@ -1,4 +1,8 @@
+# Sudo passwords
 host_vars/*
 !host_vars/example.utn.se
+
+# Vault password
+password.txt
 
 *.retry

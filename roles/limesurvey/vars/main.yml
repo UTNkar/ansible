@@ -1,0 +1,8 @@
+limesurvey:
+  url: "https://www.limesurvey.org/stable-release?download=1800:limesurvey250plus-build160804targz"
+  package: "limesurvey250plus-build160804.tar.gz"
+  fqdn: "survey.utn.se"
+  web_root: "/var/www/survey.utn.se"
+  db: "survey"
+  db_user: "survey"
+  db_password: "{{ vault_limesurvey_password }}"

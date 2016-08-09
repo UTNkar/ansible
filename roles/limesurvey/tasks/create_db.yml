@@ -1,0 +1,9 @@
+---
+- name: Ensure database is created
+  postgresql_db: name={{ limesurvey.db }}
+
+- name: Ensure user has access to database
+  postgresql_user: db={{ limesurvey.db }} name={{ limesurvey.db_user }} password={{ limesurvey.db_password }} priv=ALL
+
+- name: Ensure user does not have unnecessary privilege
+  postgresql_user: name={{limesurvey.db_user}} role_attr_flags=NOSUPERUSER,NOCREATEDB
