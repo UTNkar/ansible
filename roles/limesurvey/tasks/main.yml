@@ -33,6 +33,8 @@
 
 - name: Add NGINX configuration
   template: src=limesurvey_nginx.j2 dest=/etc/nginx/sites-available/{{ limesurvey.fqdn }}
+  notify:
+    - reload nginx
 
 - name: Enable NGINX configuration
   file: path=/etc/nginx/sites-enabled/{{ limesurvey.fqdn }} src=/etc/nginx/sites-available/{{ limesurvey.fqdn }} state=link

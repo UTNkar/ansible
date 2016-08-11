@@ -1,22 +1,74 @@
 server {
-    server_name {{ limesurvey.fqdn }};
-    root {{ limesurvey.web_root }}/limesurvey;
-    charset utf-8;
-    try_files $uri /index.php?$args;
-    location ~ ^/(protected|framework|themes/\w+/views) {
-        deny  all;
-    }
-    #avoid processing of calls to unexisting static files by yii
-    location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
-        try_files $uri =404;
-    }
-    location ~ \.php$ {
-        fastcgi_split_path_info  ^(.+\.php)(.*)$;
-        try_files $uri index.php;
-        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
-        fastcgi_index index.php;
-        include fastcgi_params;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        fastcgi_param  SCRIPT_NAME      $fastcgi_script_name;
-    }
+  listen 80;
+  listen [::]:80;
+  server_name  {{ limesurvey.fqdn }};
+  rewrite ^ https://{{ limesurvey.fqdn }}$request_uri? permanent;    # force redirect http to https
+}
+
+server {
+  listen 443;
+  listen [::]:443;
+  server_name {{ limesurvey.fqdn }};
+
+  ssl_certificate /etc/letsencrypt/live/{{ limesurvey.fqdn }}/fullchain.pem;        # path to your cacert.pem
+  ssl_certificate_key /etc/letsencrypt/live/{{ limesurvey.fqdn }}/privkey.pem;      # path to your privkey.pem
+
+  ssl on;
+  ssl_session_cache  builtin:1000  shared:SSL:10m;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+  ssl_prefer_server_ciphers on;
+
+  root {{ limesurvey.web_root }}/limesurvey;
+
+  index index.php index.html index.htm;
+
+  # Very rarely should these ever be accessed outside of your lan
+  location ~* \.(log|txt)$ {
+      allow 192.168.0.0/16;
+      deny all;
+  }
+
+  location = /favicon.ico {
+      log_not_found off;
+      access_log off;
+  }
+
+  location = /robots.txt {
+      allow all;
+      log_not_found off;
+      access_log off;
+  }
+
+  # Allow "Well-Known URIs" as per RFC 5785
+  location ~* ^/.well-known/ {
+      allow all;
+  }
+
+  # Limesurvey specific things
+  charset utf-8;
+  location ~ ^/(protected|framework|themes/\w+/views) {
+      deny  all;
+  }
+  #avoid processing of calls to unexisting static files by yii
+  location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
+      try_files $uri =404;
+  }
+
+  # Block access to "hidden" files and directories whose names begin with a
+  # period. This includes directories used by version control systems such
+  # as Subversion or Git to store control files.
+  location ~ (^|/)\. {
+    return 403;
+  }
+
+  location ~ \.php(/|$) {
+    fastcgi_split_path_info ^(.+?\.php)(|/.*)$;
+    #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_intercept_errors on;
+    fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+  }
 }
