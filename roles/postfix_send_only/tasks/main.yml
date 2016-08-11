@@ -1,0 +1,29 @@
+---
+- name: Install packages for postfix
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - postfix
+  tags:
+    - postfix
+
+- name: Setup a sending only mail server via main.cf
+  template: src=main.cf.j2 dest=/etc/postfix/main.cf owner=root group=root mode=0644
+  notify:
+    - restart postfix
+  tags:
+    - postfix
+
+- name: Set mailname
+  template: src=mailname.j2 dest=/etc/mailname owner=root group=root
+  tags:
+    - postfix
+
+- name: configure /etc/aliases to forward root's email
+  lineinfile: dest=/etc/aliases regexp="^root:.*" line="root:{{ postmaster_email }}"
+  tags:
+    - postfix
+
+- name: rebuild /etc/aliases
+  action: command /usr/bin/newaliases
+  tags:
+    - postfix

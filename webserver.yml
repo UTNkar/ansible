@@ -1,0 +1,6 @@
+---
+- name: Install Send-Only-Postfix
+  hosts: webservers
+  become: yes
+  roles:
+    - postfix_send_only
