@@ -1,0 +1,8 @@
+---
+- name: Manage Users
+  hosts: application
+  become: yes
+  vars_files:
+    - vars/users.yml
+  roles:
+    - logins

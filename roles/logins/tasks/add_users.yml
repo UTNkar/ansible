@@ -1,15 +1,16 @@
 ---
-- name: add users
+- name: Add Users
   user:
     name: "{{ item.name }}"
     state: present
-    groups: {{ item.groups }}
-    shell: {{ item.shell }}
+    groups: "{{ item.groups }}"
+    shell: "{{ item.shell }}"
+    home: "{{ item.home }}"
     append: no
   with_items: "{{ users }}"
-  when: '"{{ ansible_fqdn }}" in "{{ item.hosts }}"'
+  when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
 
-- name: add public keys
+- name: Add Public Keys
   authorized_key: user={{ item.name }} key="{{ item.ssh_pubkey }}" state=present exclusive=yes
   with_items: "{{ users }}"
-  when: '"{{ ansible_fqdn }}" in "{{ item.hosts }}"'
+  when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
