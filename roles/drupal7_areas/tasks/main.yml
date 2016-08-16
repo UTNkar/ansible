@@ -1,0 +1,36 @@
+---
+- name: Install dependencies
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - nginx
+    - mysql-server
+    # For PostgreSQL ansible support
+    - python-mysqldb
+    - php-fpm
+    - php-mbstring
+    - php-mysql
+    - php-gd
+    - php-xml
+    - php-json
+
+- include: create_db.yml
+
+- name: Ensures web_root dirs exists
+  file: path={{ item.web_root }} state=directory group=www-data
+  with_items: "{{ drupal7_installations }}"
+
+- name: Ensures public dirs exists
+  file: path={{ item.web_root }}/public state=directory group=www-data
+  with_items: "{{ drupal7_installations }}"
+
+- name: Add NGINX configurations
+  template: src=drupal_nginx.j2 dest=/etc/nginx/sites-available/{{ item.fqdn }} force=no
+  with_items: "{{ drupal7_installations }}"
+  notify:
+    - reload nginx
+
+- name: Enable NGINX configurations
+  file: path=/etc/nginx/sites-enabled/{{ item.fqdn }} src=/etc/nginx/sites-available/{{ item.fqdn }} state=link
+  with_items: "{{ drupal7_installations }}"
+  notify:
+    - reload nginx

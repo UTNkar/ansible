@@ -1,0 +1,9 @@
+---
+- name: Create Drupal 7 Areas
+  hosts: drupal7
+  become: yes
+  vars_files:
+    - vars/passwords.yml
+    - vars/drupal7_installations.yml
+  roles:
+    - drupal7_areas

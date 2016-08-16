@@ -1,0 +1,66 @@
+server {
+  listen 80;
+  server_name {{ item.fqdn }};
+  rewrite ^ https://{{ item.fqdn }}$request_uri? permanent;
+}
+
+server {
+  listen 443;
+  server_name {{ item.fqdn }};
+
+  # Includes common SSL settings.
+  ssl_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;        # path to your cacert.pem
+  ssl_certificate_key /etc/letsencrypt/live/{{ item.fqdn }}/privkey.pem;      # path to your privkey.pem
+
+  ssl on;
+  ssl_session_cache  builtin:1000  shared:SSL:10m;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+  ssl_prefer_server_ciphers on;
+
+  # Root diretory for website
+  root {{ item.web_root }}/public;
+
+  # common PHP settings.
+  location ~ \.php(/|$) {
+    fastcgi_split_path_info ^(.+?\.php)(|/.*)$;
+    include fastcgi_params;
+    # Block httpoxy attacks. See https://httpoxy.org/.
+    fastcgi_param HTTP_PROXY "";
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+    fastcgi_intercept_errors on;
+    fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+  }
+
+  # Set maximum upload size
+  client_max_body_size 100M;
+
+  # When accessing a directory, load this file from that directory
+  index index.php index.html index.htm;
+
+  # Look for this when entering a URI.
+  location / {
+  	error_page 404 = @drupal;
+  }
+
+  # Cache textfiles etc for 30 days, if a file is updated drupal will changes uri and cache is cleared.
+  location ~* \.(?:css|js|woff|ico)$ {
+  	expires 30d;
+  	add_header Vary: Accept-Encoding;
+  	access_log off;
+  	try_files $uri @drupal;
+  }
+
+  # Cache images for 7 days.
+  location ~* \.(?:gif|jpe?g|png)$ {
+  	expires 7d;
+  	try_files $uri @drupal;
+  	add_header Vary: Accept-Encoding;
+  	access_log off;
+  }
+
+  location @drupal {
+  	rewrite ^(.*)$ /index.php?q=$1 last;
+  }
+}
