@@ -1,0 +1,54 @@
+server {
+  listen 80;
+  listen [::]:80;
+  server_name  {{ documentation.fqdn }};
+  rewrite ^ https://{{ documentation.fqdn }}$request_uri? permanent;    # force redirect http to https
+}
+
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name {{ documentation.fqdn }};
+
+  ssl_certificate /etc/letsencrypt/live/{{ documentation.fqdn }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ documentation.fqdn }}/privkey.pem;
+
+  ssl on;
+  ssl_session_cache  builtin:1000  shared:SSL:10m;
+  ssl_session_timeout 1h;
+  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+  ssl_prefer_server_ciphers on;
+
+  root /var/www/{{ documentation.fqdn }}/public;
+
+  index index.html index.htm;
+
+  # Very rarely should these ever be accessed outside of your lan
+  location ~* \.(log)$ {
+      allow 192.168.0.0/16;
+      deny all;
+  }
+
+  location = /robots.txt {
+      allow all;
+      log_not_found off;
+      access_log off;
+  }
+
+  # Allow "Well-Known URIs" as per RFC 5785
+  location ~* ^/.well-known/ {
+      allow all;
+  }
+
+  location ~ \..*/.*\.php$ {
+      return 403;
+  }
+
+  # Block access to "hidden" files and directories whose names begin with a
+  # period. This includes directories used by version control systems such
+  # as Subversion or Git to store control files.
+  location ~ (^|/)\. {
+    return 403;
+  }
+}

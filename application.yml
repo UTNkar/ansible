@@ -3,6 +3,12 @@
   hosts: application
   become: yes
   vars_files:
-  - vars/passwords.yml
+    - vars/passwords.yml
   roles:
     - limesurvey
+
+- name: Deploy Documentation
+  hosts: application
+  become: yes
+  roles:
+    - documentation
