@@ -7,7 +7,7 @@
   roles:
     - logins
 
-- name: Manage Users
+- name: Enable Firewall
   hosts: all
   become: yes
   roles:
