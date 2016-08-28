@@ -1,0 +1,21 @@
+---
+- name: Deploy Documentation website
+  hosts: application
+  vars:
+    url: "docs.utn.se"
+    repo: "https://gitlab.com/UTNkar/system-documentation.git"
+    web_root: "/var/www/docs.utn.se"
+  become: yes
+  pre_tasks:
+    - name: Get git repository
+      git: repo={{ repo }} dest={{ web_root }} accept_hostkey=yes
+    - name: Install Hugo
+      apt: name=hugo state=present update_cache=yes
+    - name: Hugo Generate
+      shell: hugo
+      args:
+        chdir: "{{ web_root }}"
+    - name: Fix permissions
+      file: path={{ web_root }} group=www-data recurse=yes
+  roles:
+    - { role: nginx, fqdn: "{{ url }}", template: "html-ssl" }

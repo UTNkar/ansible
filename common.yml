@@ -10,5 +10,9 @@
 - name: Enable Firewall
   hosts: all
   become: yes
-  roles:
-    - firewall
+  tasks:
+    - name: Allow SSH connections
+      ufw: rule=allow port=ssh
+
+    - name: Enable Firewall
+      ufw: state=enabled policy=deny

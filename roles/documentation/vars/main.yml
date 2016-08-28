@@ -1,4 +1,0 @@
-documentation:
-  fqdn: "docs.utn.se"
-  repo: "https://gitlab.com/UTNkar/system-documentation.git"
-  web_root: "/var/www/docs.utn.se"

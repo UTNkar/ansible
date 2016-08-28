@@ -1,17 +1,17 @@
 server {
   listen 80;
   listen [::]:80;
-  server_name  {{ documentation.fqdn }};
-  rewrite ^ https://{{ documentation.fqdn }}$request_uri? permanent;    # force redirect http to https
+  server_name  {{ fqdn }};
+  rewrite ^ https://{{ fqdn }}$request_uri? permanent;    # force redirect http to https
 }
 
 server {
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
-  server_name {{ documentation.fqdn }};
+  server_name {{ fqdn }};
 
-  ssl_certificate /etc/letsencrypt/live/{{ documentation.fqdn }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ documentation.fqdn }}/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/{{ fqdn }}/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/{{ fqdn }}/privkey.pem;
 
   ssl on;
   ssl_session_cache  builtin:1000  shared:SSL:10m;
@@ -20,7 +20,7 @@ server {
   ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
   ssl_prefer_server_ciphers on;
 
-  root /var/www/{{ documentation.fqdn }}/public;
+  root /var/www/{{ fqdn }}/public;
 
   index index.html index.htm;
 

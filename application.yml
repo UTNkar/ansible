@@ -6,9 +6,3 @@
     - vars/passwords.yml
   roles:
     - limesurvey
-
-- name: Deploy Documentation
-  hosts: application
-  become: yes
-  roles:
-    - documentation
