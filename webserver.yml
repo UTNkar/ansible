@@ -4,3 +4,13 @@
   become: yes
   roles:
     - postfix_send_only
+
+- name: Setup Safe DHParam
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Generate Safe DHParam
+      command: /usr/bin/openssl dhparam -out dhparam.pem 4096
+      args:
+        chdir: /etc/ssl/certs
+        creates: /etc/ssl/certs/dhparam.pem
