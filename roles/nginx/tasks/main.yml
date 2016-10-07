@@ -5,12 +5,14 @@
     - nginx
 
 - name: Add NGINX configuration
-  template: src={{ template }}.nginx.j2 dest=/etc/nginx/sites-available/{{ fqdn }}
+  template: src={{ item.template }}.nginx.j2 dest=/etc/nginx/sites-available/{{ item.fqdn }}
+  with_items: "{{ websites }}"
   notify:
     - reload nginx
 
 - name: Enable NGINX configuration
-  file: path=/etc/nginx/sites-enabled/{{ fqdn }} src=/etc/nginx/sites-available/{{ fqdn }} state=link
+  file: path=/etc/nginx/sites-enabled/{{ item.fqdn }} src=/etc/nginx/sites-available/{{ item.fqdn }} state=link
+  with_items: "{{ websites }}"
   notify:
     - reload nginx
 

@@ -1,4 +1,3 @@
----
 - name: Create Drupal 7 Areas
   hosts: drupal7
   become: yes
@@ -6,4 +5,5 @@
     - vars/passwords.yml
     - vars/drupal7_installations.yml
   roles:
-    - drupal7_areas
+    - role: drupal7_area
+      areas: "{{ drupal7_installations }}"

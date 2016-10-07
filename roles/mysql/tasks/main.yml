@@ -1,0 +1,19 @@
+# Make sure the root mysql credentials are available in /root/.my.cnf, like:
+# [client]
+# user=root
+# password=1234test
+---
+- name: Install dependencies
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - mysql-server
+    # For PostgreSQL ansible support
+    - python-mysqldb
+
+- name: Ensure database is created
+  mysql_db: name={{ item.database }} encoding=utf8 state=present
+  with_items: "{{ databases }}"
+
+- name: Ensure user has access to database
+  mysql_user: name={{ item.database }} password={{ item.password }} priv=*.*:USAGE/{{ item.database }}.*:ALL state=present update_password=on_create
+  with_items: "{{ databases }}"

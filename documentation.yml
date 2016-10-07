@@ -18,4 +18,8 @@
     - name: Fix permissions
       file: path={{ web_root }} group=www-data recurse=yes
   roles:
-    - { role: nginx, fqdn: "{{ url }}", template: "html-ssl" }
+    - role: nginx
+      websites:
+        - fqdn: "{{ url }}"
+          web_root: "{{ vars.web_root }}"
+          template: "html-ssl"
