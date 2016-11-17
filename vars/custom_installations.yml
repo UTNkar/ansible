@@ -1,0 +1,6 @@
+# TODO: Add MFK
+---
+custom_installations:
+  - fqdn: "nvm.utn.se"
+    web_root: "/var/www/nvm.utn.se"
+    template: "html-ssl"
