@@ -6,3 +6,7 @@
      apt: update_cache=yes
    - name: upgrade all packages
      apt: upgrade=dist
+   - name: reboot if required
+     command: /sbin/reboot
+     args:
+       removes: /var/run/reboot-required
