@@ -1,0 +1,19 @@
+---
+- name: Ensures web_root dirs exists
+  file:
+    path: "{{ item.web_root }}/public"
+    state: directory
+    mode: "u=rwX,g=rX,o="
+    recurse: yes
+    owner: "{{ item.user }}"
+    group: "www-data"
+  with_items: "{{ areas }}"
+
+- name: Fix files permissions
+  file:
+    path: "{{ item.web_root }}/public/sites/default/files"
+    state: directory
+    mode: "ug=rwX,o="
+    recurse: yes
+  with_items: "{{ areas }}"
+  changed_when: False

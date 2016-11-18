@@ -9,10 +9,6 @@
     - role: nginx
       websites: "{{ custom_installations }}"
   tasks:
-    - name: Ensures web_root dirs exists
-      file: path={{ item.web_root }} state=directory owner={{item.user}} group=www-data
-      with_items: "{{ custom_installations }}"
-
     - name: Ensures public dirs exists
-      file: path={{ item.web_root }}/public state=directory owner={{item.user}} group=www-data
+      file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ custom_installations }}"

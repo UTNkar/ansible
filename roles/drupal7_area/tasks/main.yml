@@ -9,10 +9,4 @@
     - php-xml
     - php-json
 
-- name: Ensures web_root dirs exists
-  file: path={{ item.web_root }} state=directory group=www-data
-  with_items: "{{ areas }}"
-
-- name: Ensures public dirs exists
-  file: path={{ item.web_root }}/public state=directory group=www-data
-  with_items: "{{ areas }}"
+- include: permissions.yml
