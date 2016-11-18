@@ -3,4 +3,5 @@
 custom_installations:
   - fqdn: "nvm.utn.se"
     web_root: "/var/www/nvm.utn.se"
+    user: "nvm"
     template: "html-ssl"
