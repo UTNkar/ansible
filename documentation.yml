@@ -10,7 +10,7 @@
     - name: Get git repository
       git: repo={{ repo }} dest={{ web_root }} accept_hostkey=yes
     - name: Install Hugo
-      apt: name=hugo state=present update_cache=yes
+      apt: name=hugo state=present
     - name: Hugo Generate
       shell: hugo
       args:

@@ -4,7 +4,7 @@
 # password=1234test
 ---
 - name: Install dependencies
-  apt: name={{ item }} state=present update_cache=yes
+  apt: name={{ item }} state=present
   with_items:
     - mysql-server
     # For PostgreSQL ansible support
