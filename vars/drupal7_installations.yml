@@ -26,7 +26,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "polhacks.utn.se"
     web_root: "/var/www/polhacks.utn.se"
-    user: "root"
+    user: "polhacks"
     database: "polhacks"
     password: "{{ vault_polhacks_password }}"
     template: "drupal"

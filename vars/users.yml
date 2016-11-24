@@ -11,7 +11,6 @@ users:
     hosts:
       - "turing.utn.se"
       - "babbage.utn.se"
-
   - name: "mfk"
     groups: ""
     home: "/var/www/mfk.utn.se"
@@ -19,7 +18,6 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/mfk.pub') }}"
     hosts:
       - "turing.utn.se"
-
   - name: "nvm"
     groups: ""
     home: "/var/www/nvm.utn.se"
@@ -27,5 +25,12 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvm.pub') }}"
     hosts:
       - "turing.utn.se"
+  - name: "polhacks"
+    groups: ""
+    home: "/var/www/polhacks.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/polhacks.pub') }}"
+    hosts:
+      - "babbage.utn.se"
 
 old_users: []
