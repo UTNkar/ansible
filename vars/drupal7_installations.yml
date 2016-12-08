@@ -14,7 +14,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "forsranningen.utn.se"
     web_root: "/var/www/forsranningen.utn.se"
-    user: "root"
+    user: "forsranningen"
     database: "forsranningen"
     password: "{{ vault_forsranningen_password }}"
     template: "drupal"

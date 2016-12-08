@@ -1,8 +1,9 @@
 ---
 admin_groups: 'sudo'
 
-# users
+# Users
 users:
+  # Administrators
   - name: "jdekker"
     groups: "{{ admin_groups }}"
     home: "/home/jdekker"
@@ -11,6 +12,29 @@ users:
     hosts:
       - "turing.utn.se"
       - "babbage.utn.se"
+  # Committees
+  - name: "balen"
+    groups: ""
+    home: "/var/www/balen.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/balen.pub') }}"
+    hosts:
+      - "babbage.utn.se"
+  - name: "forsranningen"
+    groups: ""
+    home: "/var/www/forsranningen.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/forsranningen.pub') }}"
+    hosts:
+      - "babbage.utn.se"
+  - name: "polhacks"
+    groups: ""
+    home: "/var/www/polhacks.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/polhacks.pub') }}"
+    hosts:
+      - "babbage.utn.se"
+  # Sections
   - name: "mfk"
     groups: ""
     home: "/var/www/mfk.utn.se"
@@ -25,12 +49,5 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvm.pub') }}"
     hosts:
       - "turing.utn.se"
-  - name: "polhacks"
-    groups: ""
-    home: "/var/www/polhacks.utn.se"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/polhacks.pub') }}"
-    hosts:
-      - "babbage.utn.se"
 
 old_users: []
