@@ -2,10 +2,8 @@
 - hosts: all
   become: true
   tasks:
-   - name: update apt cache
-     apt: update_cache=yes
    - name: upgrade all packages
-     apt: upgrade=dist
+     apt: update_cache=yes upgrade=dist
    - name: reboot if required
      command: /sbin/reboot
      args:
