@@ -3,7 +3,7 @@
   hosts: application
   vars:
     url: "docs.utn.se"
-    repo: "https://gitlab.com/UTNkar/system-documentation.git"
+    repo: "https://github.com/UTNkar/documentation.git"
     web_root: "/var/www/docs.utn.se"
   become: yes
   pre_tasks:
