@@ -35,6 +35,13 @@ users:
     hosts:
       - "babbage.utn.se"
   # Sections
+  - name: "grus"
+    groups: ""
+    home: "/var/www/grus.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/grus.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   - name: "mfk"
     groups: ""
     home: "/var/www/mfk.utn.se"
@@ -49,5 +56,6 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvm.pub') }}"
     hosts:
       - "turing.utn.se"
+
 
 old_users: []
