@@ -6,6 +6,9 @@
     groups: "{{ item.groups }}"
     shell: "{{ item.shell }}"
     home: "{{ item.home }}"
+    # password: changeme
+    password: $6$rounds=656000$BjZCF3F110zBo2mU$NoK.h2vYyeX6O8eXhsj.C3NkTkfOqnaI7HC.x20h7pKodTMQ9JKUS8wA2bpFx.JOqw7QSBviPZrzu0uniyWOF1
+    update_password: on_create
     append: no
   with_items: "{{ users }}"
   when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
