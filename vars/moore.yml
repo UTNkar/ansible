@@ -1,0 +1,43 @@
+---
+# a unix path-friendly name (IE, no spaces or special characters)
+project_name: moore
+
+# the base path to install to. You should not need to change this.
+install_root: /var/www
+
+wsgi_module: website.wsgi
+django_settings: website.settings.production
+
+# any directories that need to be added to the PYTHONPATH.
+pythonpath: "{{ install_root }}/{{ project_name }}/website"
+virtualenv: "{{ install_root }}/{{ project_name }}/venv"
+
+# the git repository URL for the project
+project_repo: https://github.com/UTNkar/moore.git
+
+static_root: "{{ pythonpath }}/static/"
+media_root: "{{ pythonpath }}/media/"
+
+process_name: "moore"
+process_user: "moore"
+process_group: "www-data"
+
+
+# the dns name or names (space separated) for your server
+server_name: dev.utn.se, apply.utn.se
+
+db_name: moore
+db_user: moore
+db_password: "{{ vault_moore_password }}"
+
+django_secret_key: "{{ vault_moore_key }}"
+
+# apt packages
+system_packages:
+  - git
+  - postgresql
+  - python3
+  - python3-pip
+  - python3-venv
+  - python3-psycopg2
+  - python-psycopg2 # for Ansible

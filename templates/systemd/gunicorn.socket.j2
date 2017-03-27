@@ -1,0 +1,10 @@
+[Unit]
+Description={{process_name}} socket
+
+[Socket]
+ListenStream=/run/{{process_name}}/socket
+SocketUser={{process_user}}
+SocketGroup={{process_group}}
+
+[Install]
+WantedBy=sockets.target

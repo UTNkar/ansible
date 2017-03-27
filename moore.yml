@@ -1,0 +1,116 @@
+---
+- hosts: django
+  vars_files:
+    - vars/passwords.yml
+    - vars/moore.yml
+  become: yes
+
+  tasks:
+    - name: install system packages
+      apt: pkg={{ item }} update-cache=yes
+      with_items: "{{ system_packages }}"
+
+    - name: install gunicorn
+      pip:
+        name: gunicorn
+        virtualenv: "{{ virtualenv }}"
+        virtualenv_command: "pyvenv"
+      become_user: "{{ process_user }}"
+
+    - name: make sure postgresql server is running
+      service: name=postgresql state=started
+
+    - name: create database
+      become_user: postgres
+      postgresql_db: name={{ db_name }}
+
+    - name: create database user
+      become_user: postgres
+      postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL
+
+    - name: create system user
+      action: user name={{ process_name }} shell=/sbin/nologin system='yes'
+
+- hosts: django
+  vars_files:
+    - vars/passwords.yml
+    - vars/moore.yml
+  become: yes
+
+  tasks:
+    - name: Clone/pull project repo
+      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
+      notify:
+      - restart gunicorn
+      - fix permissions
+      become_user: "{{process_user}}"
+
+    - name: install python packages
+      pip:
+        requirements: "{{ install_root }}/{{ project_name }}/requirements.txt"
+        virtualenv: "{{ virtualenv }}"
+        virtualenv_command: "pyvenv"
+      notify:
+      - restart gunicorn
+      - fix permissions
+      become_user: "{{process_user}}"
+
+    - name: django migrate
+      django_manage:
+        command: migrate
+        app_path: "{{ pythonpath }}"
+        virtualenv: "{{ virtualenv }}"
+        settings: "{{ django_settings }}"
+      become_user: "{{process_user}}"
+      environment:
+        DJANGO_SECRET: "{{ django_secret_key }}"
+        DJANGO_DB_PASS: "{{ db_password }}"
+
+    - name: fix permissions
+      file: path={{ install_root }}/{{ project_name }} state=directory owner={{ process_user }} group={{ process_group }} recurse=yes
+
+    - name: django collectstatic
+      django_manage:
+        command: collectstatic
+        app_path: "{{ pythonpath }}"
+        virtualenv: "{{ virtualenv }}"
+        settings: "{{ django_settings }}"
+      notify:
+      - fix permissions
+      become_user: "{{process_user}}"
+
+    - name: copy gunicorn service config
+      template: src=templates/systemd/gunicorn.service.j2 dest=/etc/systemd/system/{{process_name}}.service
+      vars:
+        working_dir: "{{ pythonpath }}"
+      notify:
+      - restart gunicorn
+
+    - name: copy gunicorn socket config
+      template: src=templates/systemd/gunicorn.socket.j2 dest=/etc/systemd/system/{{process_name}}.socket
+      notify:
+      - restart gunicorn
+
+    - name: copy gunicorn tmpfiles config
+      template: src=templates/systemd/tmpfiles.gunicorn.conf.j2 dest=/etc/tmpfiles.d/{{process_name}}.conf
+      notify:
+      - restart gunicorn
+
+    - name: make sure gunicorn server is running
+      service: name={{process_name}} state=started enabled=yes
+  roles:
+    - role: nginx
+      websites:
+        - fqdn: "{{ server_name }}"
+          file: "moore.utn.se"
+          template: "django-http"
+          static_root: "{{ static_root }}"
+          media_root: "{{ media_root }}"
+          process_name: "{{ process_name }}"
+
+  handlers:
+    - name: restart gunicorn
+      service: name={{process_name}} state=restarted
+
+    - name: fix permissions
+      file: path={{ install_root }}/{{ project_name }} state=directory owner={{ process_user }} group={{ process_group }} recurse=yes

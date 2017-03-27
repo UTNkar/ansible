@@ -12,6 +12,7 @@ users:
     hosts:
       - "turing.utn.se"
       - "babbage.utn.se"
+      - "moore.utn.se"
   # Committees
   - name: "balen"
     groups: ""

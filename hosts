@@ -1,9 +1,13 @@
 [webservers]
 turing.utn.se
 babbage.utn.se
+moore.utn.se
 
 [application]
 turing.utn.se
 
 [drupal7]
 babbage.utn.se
+
+[django]
+moore.utn.se

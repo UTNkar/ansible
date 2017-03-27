@@ -1,0 +1,22 @@
+[Unit]
+Description={{process_name}} daemon
+Requires={{process_name}}.socket
+After=network.target
+
+[Service]
+PIDFile=/run/{{process_name}}/pid
+User={{process_user}}
+Group={{process_group}}
+RuntimeDirectory={{process_name}}
+WorkingDirectory={{working_dir}}
+ExecStart={{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
+          --bind unix:/run/{{process_name}}/socket {{wsgi_module}}
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+Environment="DJANGO_SETTINGS_MODULE={{ django_settings }}"
+Environment="DJANGO_SECRET={{ django_secret_key }}"
+Environment="DJANGO_DB_PASS={{ db_password }}"
+
+[Install]
+WantedBy=multi-user.target
