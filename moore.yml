@@ -39,7 +39,7 @@
 
   tasks:
     - name: Clone/pull project repo
-      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes
+      git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes version=master
       notify:
       - restart gunicorn
       - fix permissions
@@ -103,7 +103,8 @@
       websites:
         - fqdn: "{{ server_name }}"
           file: "moore.utn.se"
-          template: "django-http"
+          certfile: "moore.utn.se"
+          template: "django-https"
           static_root: "{{ static_root }}"
           media_root: "{{ media_root }}"
           process_name: "{{ process_name }}"
