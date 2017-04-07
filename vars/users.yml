@@ -35,6 +35,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/polhacks.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "utnarm"
+    groups: ""
+    home: "/var/www/utnarm.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/utnarm.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   # Sections
   - name: "grus"
     groups: ""

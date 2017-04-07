@@ -50,7 +50,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "utnarm.utn.se"
     web_root: "/var/www/utnarm.utn.se"
-    user: "root"
+    user: "utnarm"
     database: "utnarm"
     password: "{{ vault_utnarm_password }}"
     template: "drupal"
