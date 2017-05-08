@@ -41,6 +41,7 @@
     - name: Clone/pull project repo
       git: repo={{ project_repo }} dest={{ install_root }}/{{ project_name }} accept_hostkey=yes force=yes version=master
       notify:
+      - restart socket
       - restart gunicorn
       - fix permissions
       become_user: "{{process_user}}"
@@ -51,6 +52,7 @@
         virtualenv: "{{ virtualenv }}"
         virtualenv_command: "pyvenv"
       notify:
+      - restart socket
       - restart gunicorn
       - fix permissions
       become_user: "{{process_user}}"
@@ -79,21 +81,35 @@
       - fix permissions
       become_user: "{{process_user}}"
 
+    - name: django cron
+      django_manage:
+        command: installtasks
+        app_path: "{{ pythonpath }}"
+        virtualenv: "{{ virtualenv }}"
+        settings: "{{ django_settings }}"
+      become_user: "{{process_user}}"
+
     - name: copy gunicorn service config
       template: src=templates/systemd/gunicorn.service.j2 dest=/etc/systemd/system/{{process_name}}.service
       vars:
         working_dir: "{{ pythonpath }}"
       notify:
+      - reload systemd
+      - restart socket
       - restart gunicorn
 
     - name: copy gunicorn socket config
       template: src=templates/systemd/gunicorn.socket.j2 dest=/etc/systemd/system/{{process_name}}.socket
       notify:
+      - reload systemd
+      - restart socket
       - restart gunicorn
 
     - name: copy gunicorn tmpfiles config
       template: src=templates/systemd/tmpfiles.gunicorn.conf.j2 dest=/etc/tmpfiles.d/{{process_name}}.conf
       notify:
+      - reload systemd
+      - restart socket
       - restart gunicorn
 
     - name: make sure gunicorn server is running
@@ -110,8 +126,14 @@
           process_name: "{{ process_name }}"
 
   handlers:
+    - name: reload systemd
+      systemd: daemon_reload=yes
+
+    - name: restart socket
+      systemd: name={{process_name}}.socket state=stopped
+
     - name: restart gunicorn
-      service: name={{process_name}} state=restarted
+      systemd: name={{process_name}}.service state=restarted
 
     - name: fix permissions
       file: path={{ install_root }}/{{ project_name }} state=directory owner={{ process_user }} group={{ process_group }} recurse=yes
