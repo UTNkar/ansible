@@ -75,7 +75,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "k.utn.se"
     web_root: "/var/www/k.utn.se"
-    user: "root"
+    user: "k"
     database: "k"
     password: "{{ vault_k_password }}"
     template: "drupal"
