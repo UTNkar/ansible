@@ -78,6 +78,20 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvm.pub') }}"
     hosts:
       - "turing.utn.se"
+  - name: "sts"
+    groups: ""
+    home: "/var/www/sts.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/sts.pub') }}"
+    hosts:
+      - "babbage.utn.se"
+  - name: "w"
+    groups: ""
+    home: "/var/www/w.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/w.pub') }}"
+    hosts:
+      - "babbage.utn.se"
 
 
 old_users: []
