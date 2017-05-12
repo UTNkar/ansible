@@ -11,7 +11,7 @@
     update_password: on_create
     append: no
   with_items: "{{ users }}"
-  when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
+  when: inventory_hostname in item.hosts
 
 - name: Home Directory
   file:
@@ -19,9 +19,9 @@
     state: directory
     owner: "{{ item.name }}"
   with_items: "{{ users }}"
-  when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
+  when: inventory_hostname in item.hosts
 
 - name: Add Public Keys
   authorized_key: user={{ item.name }} key="{{ item.ssh_pubkey }}" state=present exclusive=yes
   with_items: "{{ users }}"
-  when: '"{{ inventory_hostname }}" in "{{ item.hosts }}"'
+  when: inventory_hostname in item.hosts
