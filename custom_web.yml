@@ -12,3 +12,19 @@
     - name: Ensures public dirs exists
       file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ custom_installations }}"
+
+- name: create databases
+  hosts: application
+  become: yes
+  become_user: postgres
+  vars_files:
+    - vars/passwords.yml
+    - vars/custom_installations.yml
+  tasks:
+    - name: create database
+      postgresql_db: name={{ item.name }}
+      with_items: "{{ databases }}"
+
+    - name: create database user
+      postgresql_user: db={{ item.name }} name={{ item.user }} password={{ item.password }} priv=ALL
+      with_items: "{{ databases }}"
