@@ -38,7 +38,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "recce.utn.se"
     web_root: "/var/www/recce.utn.se"
-    user: "root"
+    user: "recce"
     database: "recce"
     password: "{{ vault_recce_password }}"
     template: "drupal"
