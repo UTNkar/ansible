@@ -7,7 +7,7 @@ custom_installations:
     template: "html-ssl"
   - fqdn: "x.utn.se"
     web_root: "/var/www/x.utn.se"
-    user: "root"
+    user: "x"
     template: "wordpress"
 
 databases:
