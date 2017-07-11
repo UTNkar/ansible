@@ -32,6 +32,7 @@ db_password: "{{ vault_moore_password }}"
 
 api_password: "{{ vault_moore_api_password }}"
 django_secret_key: "{{ vault_moore_key }}"
+sentry_dsn: "{{ vault_moore_sentry_dsn }}"
 
 # apt packages
 system_packages:
