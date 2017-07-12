@@ -13,6 +13,15 @@ users:
       - "turing.utn.se"
       - "babbage.utn.se"
       - "moore.utn.se"
+  - name: "jsnider"
+    groups: "{{ admin_groups }}"
+    home: "/home/jsnider"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/jsnider.pub') }}"
+    hosts:
+      - "turing.utn.se"
+      - "babbage.utn.se"
+      - "moore.utn.se"
   # Committees
   - name: "balen"
     groups: ""
