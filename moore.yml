@@ -94,7 +94,6 @@
       vars:
         working_dir: "{{ pythonpath }}"
       notify:
-      - reload systemd
       - restart socket
       - restart gunicorn
 
