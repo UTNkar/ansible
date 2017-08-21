@@ -4,5 +4,5 @@ host_vars/*
 
 # Vault password
 password.txt
-
+.DS_store
 *.retry
