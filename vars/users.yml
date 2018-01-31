@@ -59,6 +59,13 @@ users:
     hosts:
       - "babbage.utn.se"
   # Sections
+  - name: "es"
+    groups: ""
+    home: "/var/www/es.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/es.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   - name: "grus"
     groups: ""
     home: "/var/www/grus.utn.se"
