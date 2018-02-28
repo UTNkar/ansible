@@ -128,7 +128,7 @@ users:
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/x.pub') }}"
     hosts:
-      - "turing.utn.se"
+      - "babbage.utn.se"
   - name: "nvk"
     groups: ""
     home: "/var/www/nvk.utn.se"
