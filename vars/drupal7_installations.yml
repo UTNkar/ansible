@@ -108,4 +108,4 @@ drupal7_installations:
     user: "x"
     database: "x"
     password: "{{ vault_x_password }}"
-    template: "drupal"
+    template: "temp-http"
