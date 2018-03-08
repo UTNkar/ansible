@@ -1,4 +1,4 @@
-# TODO: Add MFK
+
 ---
 custom_installations:
   - fqdn: "nvm.utn.se"
@@ -14,3 +14,6 @@ databases:
   - name: "x"
     user: "x"
     password: "{{ vault_x_password }}"
+  - name: "mfk"
+    user: "mfk"
+    password: "{{ vault_mfk_password }}"
