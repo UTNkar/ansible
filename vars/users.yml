@@ -59,13 +59,13 @@ users:
     hosts:
       - "babbage.utn.se"
   # Sections
-    - name: "basar"
-      groups: ""
-      home: "/var/www/basar.utn.se"
-      shell: "/bin/bash"
-      ssh_pubkey: "{{ lookup('file', 'files/pubkeys/basar.pub') }}"
-      hosts:
-        - "babbage.utn.se"
+  - name: "basar"
+    groups: ""
+    home: "/var/www/basar.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/basar.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   - name: "es"
     groups: ""
     home: "/var/www/es.utn.se"
