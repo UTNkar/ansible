@@ -144,5 +144,12 @@ users:
     hosts:
       - "babbage.utn.se"
 
+  - name: "furedal"
+    groups: ""
+    home: "/home/swace"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/furedal.pub') }}"
+    hosts:
+      - "moore.utn.se"
 
 old_users: []
