@@ -145,7 +145,7 @@ users:
       - "babbage.utn.se"
 
   - name: "furedal"
-    groups: ""
+    groups: "{{ admin_groups }}"
     home: "/home/swace"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/furedal.pub') }}"
