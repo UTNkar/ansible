@@ -22,6 +22,15 @@ users:
       - "turing.utn.se"
       - "babbage.utn.se"
       - "moore.utn.se"
+  - name: "dfehrm"
+    groups: "{{ admin_groups }}"
+    home: "/home/dfehrm"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/dfehrm.pub') }}"
+    hosts:
+      - "turing.utn.se"
+      - "babbage.utn.se"
+      - "moore.utn.se"
   # Committees
   - name: "balen"
     groups: ""
