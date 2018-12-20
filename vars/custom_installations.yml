@@ -5,15 +5,8 @@ custom_installations:
     web_root: "/var/www/nvm.utn.se"
     user: "nvm"
     template: "html-ssl"
-  - fqdn: "x.utn.se"
-    web_root: "/var/www/x.utn.se"
-    user: "x"
-    template: "wordpress"
 
 databases:
-  - name: "x"
-    user: "x"
-    password: "{{ vault_x_password }}"
   - name: "mfk"
     user: "mfk"
     password: "{{ vault_mfk_password }}"
