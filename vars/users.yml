@@ -60,6 +60,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/recce.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "rally"
+    groups: ""
+    home: "/var/www/rally.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/rally.pub') }}"
+    hosts:
+    - "babbage.utn.se"
   - name: "utnarm"
     groups: ""
     home: "/var/www/utnarm.utn.se"

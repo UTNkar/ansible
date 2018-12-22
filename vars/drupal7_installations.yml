@@ -44,7 +44,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "rally.utn.se"
     web_root: "/var/www/rally.utn.se"
-    user: "root"
+    user: "rally"
     database: "rally"
     password: "{{ vault_rally_password }}"
     template: "drupal"
