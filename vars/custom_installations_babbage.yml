@@ -1,0 +1,10 @@
+# Custom installtions for babbage
+custom_installations:
+  - fqdn: "rallybot.utn.se"
+    web_root: "/var/www/rallybot.utn.se"
+    user: "rally"
+    template: "html-ssl"
+
+custom_databases:
+  - database: "rallybot"
+    password: "{{ vault_rally_password }}"

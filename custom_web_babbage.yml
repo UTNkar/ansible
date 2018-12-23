@@ -1,0 +1,23 @@
+# Custom installations on babbage
+- name: Deploy custom installations
+  hosts: drupal7
+  become: yes
+  vars_files:
+    - vars/custom_installations_babbage.yml
+  roles:
+    - role: nginx
+      websites: "{{ custom_installations }}"
+  tasks:
+    - name: Ensures public dirs exists
+      file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
+      with_items: "{{ custom_installations }}"
+
+- name: create databases
+  hosts: drupal7
+  become: yes
+  vars_files:
+    - vars/passwords.yml
+    - vars/custom_installations_babbage.yml
+  roles:
+    - role: mysql
+      databases: "{{ custom_databases }}"
