@@ -3,7 +3,7 @@ custom_installations:
   - fqdn: "rallybot.utn.se"
     web_root: "/var/www/rallybot.utn.se"
     user: "rally"
-    template: "html-ssl"
+    template: "php-application"
 
 custom_databases:
   - database: "rallybot"
