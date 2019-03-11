@@ -89,13 +89,6 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/es.pub') }}"
     hosts:
       - "babbage.utn.se"
-  - name: "grus"
-    groups: ""
-    home: "/var/www/grus.utn.se"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/grus.pub') }}"
-    hosts:
-      - "babbage.utn.se"
   - name: "h"
     groups: ""
     home: "/var/www/h.utn.se"
