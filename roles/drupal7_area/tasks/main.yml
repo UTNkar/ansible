@@ -1,12 +1,13 @@
 ---
 - name: Install dependencies
-  apt: name={{ item }} state=present
-  with_items:
-    - php-fpm
-    - php-mbstring
-    - php-mysql
-    - php-gd
-    - php-xml
-    - php-json
+  apt: 
+    name:
+      - php-fpm
+      - php-mbstring
+      - php-mysql
+      - php-gd
+      - php-xml
+      - php-json
+    state: present
 
 - include: permissions.yml

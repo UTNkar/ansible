@@ -4,11 +4,11 @@
 # password=1234test
 ---
 - name: Install dependencies
-  apt: name={{ item }} state=present
-  with_items:
-    - mysql-server
-    # For PostgreSQL ansible support
-    - python-mysqldb
+  apt: 
+    name:
+      - mysql-server
+      - python-mysqldb
+    state: present
 
 - name: Ensure database is created
   mysql_db: name={{ item.database }} encoding=utf8 state=present
