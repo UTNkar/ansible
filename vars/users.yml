@@ -4,24 +4,6 @@ admin_groups: 'sudo'
 # Users
 users:
   # Administrators
-  - name: "jdekker"
-    groups: "{{ admin_groups }}"
-    home: "/home/jdekker"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/jdekker.pub') }}"
-    hosts:
-      - "turing.utn.se"
-      - "babbage.utn.se"
-      - "moore.utn.se"
-  - name: "jsnider"
-    groups: "{{ admin_groups }}"
-    home: "/home/jsnider"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/jsnider.pub') }}"
-    hosts:
-      - "turing.utn.se"
-      - "babbage.utn.se"
-      - "moore.utn.se"
   - name: "dfehrm"
     groups: "{{ admin_groups }}"
     home: "/home/dfehrm"
