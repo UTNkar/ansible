@@ -106,11 +106,11 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvb.pub') }}"
     hosts:
       - "babbage.utn.se"
-  - name: "nvl"
+  - name: "larnat"
     groups: ""
-    home: "/var/www/nvl.utn.se"
+    home: "/var/www/larnat.utn.se"
     shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvl.pub') }}"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/larnat.pub') }}"
     hosts:
       - "babbage.utn.se"
   - name: "sts"
