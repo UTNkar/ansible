@@ -26,7 +26,7 @@ drupal7_installations:
     template: "drupal"
   - fqdn: "master.utn.se"
     web_root: "/var/www/master.utn.se"
-    user: "root"
+    user: "imm"
     database: "master"
     password: "{{ vault_master_password }}"
     template: "drupal"

@@ -85,6 +85,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/k.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "imm"
+    groups: ""
+    home: "/var/www/master.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/master.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   - name: "mfk"
     groups: ""
     home: "/var/www/mfk.utn.se"
