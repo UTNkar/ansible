@@ -141,14 +141,6 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/x.pub') }}"
     hosts:
       - "babbage.utn.se"
-  - name: "nvk"
-    groups: ""
-    home: "/var/www/nvk.utn.se"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/nvk.pub') }}"
-    hosts:
-      - "babbage.utn.se"
-
   - name: "furedal"
     groups: "{{ admin_groups }}"
     home: "/home/swace"
