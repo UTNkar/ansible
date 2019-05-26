@@ -5,6 +5,11 @@ custom_installations:
     web_root: "/var/www/nvm.utn.se"
     user: "nvm"
     template: "html-ssl"
+  - fqdn: "mfk.utn.se"
+    web_root: "/var/www/mfk.utn.se"
+    user: "mfk"
+    template: "php-application"
+
 
 databases:
   - name: "mfk"
