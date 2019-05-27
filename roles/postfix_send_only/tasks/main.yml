@@ -1,8 +1,9 @@
 ---
 - name: Install packages for postfix
-  apt: pkg={{ item }} state=latest
-  with_items:
-    - postfix
+  apt:
+    pkg:
+      - postfix
+    state: latest
   tags:
     - postfix
 
