@@ -25,7 +25,8 @@ smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 # Enable TLS encryption when sending out emails
-smtp_tls_security_level = encrypt                                                                                       smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+smtp_tls_security_level = encrypt
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 
 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
 # information on enabling SSL in the smtp client.
