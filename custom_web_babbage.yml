@@ -1,4 +1,5 @@
 # Custom installations on babbage
+
 - name: Deploy custom installations
   hosts: drupal7
   become: yes
@@ -8,6 +9,11 @@
     - role: nginx
       websites: "{{ custom_installations }}"
   tasks:
+    - name: Install dependencies for custom installations
+      apt:
+        name: composer
+        state: present
+
     - name: Ensures public dirs exists
       file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ custom_installations }}"
