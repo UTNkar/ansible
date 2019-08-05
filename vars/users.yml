@@ -51,7 +51,7 @@ users:
     - "babbage.utn.se"
   - name: "utnarm"
     groups: ""
-    home: "/var/www/utnarm.utn.se"
+    home: "/var/www/old.utnarm.utn.se"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/utnarm.pub') }}"
     hosts:
