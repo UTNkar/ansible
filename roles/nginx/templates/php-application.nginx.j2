@@ -69,6 +69,11 @@ server {
     try_files $uri $uri/ =404;
   }
 
+  # Deny all access to flyway (Database migration program)
+  location ~* /flyway\/*.* {
+    deny all;
+  }
+  
   location ~ \.php$ {
     #If a php file is not found, show 404 error
     try_files $uri =404;
