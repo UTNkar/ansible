@@ -34,6 +34,9 @@ server {
   ## verify chain of trust of OCSP response using Root CA and Intermediate certs
   ssl_trusted_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;
 
+  # Increses the upload limit
+  client_max_body_size 100M;
+
   location = /favicon.ico {
     log_not_found off;
     access_log off;
