@@ -1,0 +1,25 @@
+---
+- name: Install nodejs and pm2
+  hosts: application
+  become: yes
+  roles: 
+    - geerlingguy.nodejs
+  vars:
+      nodejs_version: 12.x
+      nodejs_install_npm_user: root
+      nodejs_npm_global_packages:
+        - name: pm2
+
+- name: Setup applications
+  hosts: application
+  become: yes
+  vars_files:
+    - vars/node_applications.yml
+  roles:
+    - role: nginx
+      websites: "{{ node_applications }}"
+  tasks:
+    - name: Ensures public dirs exists
+      file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
+      with_items: "{{ node_applications }}"
+

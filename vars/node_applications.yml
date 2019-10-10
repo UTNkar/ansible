@@ -1,0 +1,6 @@
+---
+node_applications:
+  - fqdn: "ordsys.utn.se"
+    web_root: "/var/www/ordsys.utn.se"
+    user: "root"
+    template: "node"
