@@ -11,6 +11,8 @@ server {
   server_name {{ item.fqdn }};
   root {{ item.web_root }}/public;
 
+  error_log /var/log/nginx/sites/{{ item.fqdn }}/error_log.log;
+
   # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
   ssl_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/{{ item.fqdn }}/privkey.pem;

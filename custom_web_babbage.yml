@@ -3,6 +3,8 @@
 - name: Deploy custom installations
   hosts: drupal7
   become: yes
+  vars:
+        log_path: /var/log/nginx/sites
   vars_files:
     - vars/custom_installations_babbage.yml
   roles:
@@ -17,6 +19,35 @@
     - name: Ensures public dirs exists
       file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ custom_installations }}"
+
+    - name: Create Main Log Folder
+      file:
+        path: "{{ log_path }}"
+        state: directory
+        owner: www-data
+        recurse: true
+        mode: '0775'
+
+    - name: Create Log Folders For Sites
+      file: 
+        path: "{{ log_path }}/{{ item.fqdn }}"
+        owner: "{{item.user}}"
+        group: www-data
+        mode: '0775'
+        state: directory
+        recurse: true
+      with_items: "{{ custom_installations }}"
+
+    - name: Create Log File For Sites
+      file: 
+        path: "{{ log_path }}/{{ item.fqdn }}/error_log.log"
+        owner: "{{item.user}}"
+        group: www-data
+        mode: '0420'
+        state: touch
+      with_items: "{{ custom_installations }}"
+      notify: reload nginx
+
 
 - name: create databases
   hosts: drupal7
