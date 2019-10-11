@@ -1,5 +1,5 @@
 ---
-- name: Install nodejs and pm2
+- name: Setup dependencies
   hosts: application
   become: yes
   roles: 
@@ -7,8 +7,19 @@
   vars:
       nodejs_version: 12.x
       nodejs_install_npm_user: root
-      nodejs_npm_global_packages:
-        - name: pm2
+      npm_config_prefix: /usr/lib/node_modules
+  tasks:
+    - name: Install PM2
+      npm:
+        name: pm2
+        global: yes
+
+    - name: Get facts about services
+      service_facts:
+
+    - name: Add PM2 as a service
+      shell: pm2 startup
+      when: ansible_facts.services["pm2-root.service"] is not defined
 
 - name: Setup applications
   hosts: application
