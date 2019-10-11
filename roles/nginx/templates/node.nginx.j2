@@ -3,7 +3,7 @@ server {
     listen [::]:80;
 
     server_name {{item.fqdn}};
-    root /var/www/{{item.fqdn}}
+    root /var/www/{{item.fqdn}};
 
     location / {
         proxy_pass http://localhost:3000;
