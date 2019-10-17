@@ -14,13 +14,6 @@ users:
       - "babbage.utn.se"
       - "moore.utn.se"
   # Committees
-  - name: "balen"
-    groups: ""
-    home: "/var/www/balen.utn.se"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/balen.pub') }}"
-    hosts:
-      - "babbage.utn.se"
   - name: "forsranningen"
     groups: ""
     home: "/var/www/forsranningen.utn.se"
