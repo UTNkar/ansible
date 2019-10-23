@@ -33,4 +33,10 @@
     - name: Ensures public dirs exists
       file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ node_applications }}"
+    
+    - name: Copy ecosystem file  
+
+    - name: Start or reload applications
+      shell: "pm2 startOrReload /var/www/ecosystem.config.js"
+
 
