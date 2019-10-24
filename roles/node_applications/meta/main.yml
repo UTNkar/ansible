@@ -1,11 +1,11 @@
-#dependencies: 
-  #  - role: nginx
-  #    vars:
-    #      websites: "{{ node_applications }}"
+dependencies: 
+  - role: nginx
+    vars:
+      websites: "{{ node_applications }}"
     
-    #  - role: geerlingguy.nodejs
-    #    vars:
-      #      nodejs_version: 12.x
-      #      nodejs_install_npm_user: root
-      #      npm_config_prefix: /usr/lib/node_modules
+  - role: geerlingguy.nodejs
+    vars:
+      nodejs_version: 12.x
+      nodejs_install_npm_user: root
+      npm_config_prefix: /usr/lib/node_modules
 
