@@ -1,42 +1,9 @@
 ---
-- name: Setup dependencies
+- name: Install node applications
   hosts: application
   become: yes
-  roles: 
-    - geerlingguy.nodejs
-  vars:
-      nodejs_version: 12.x
-      nodejs_install_npm_user: root
-      npm_config_prefix: /usr/lib/node_modules
-  tasks:
-    - name: Install PM2
-      npm:
-        name: pm2
-        global: yes
-
-    - name: Get facts about services
-      service_facts:
-
-    - name: Add PM2 as a service
-      shell: pm2 startup
-      when: ansible_facts.services["pm2-root.service"] is not defined
-
-- name: Setup applications
-  hosts: application
-  become: yes
+  become_flags: -HE
   vars_files:
     - vars/node_applications.yml
   roles:
-    - role: nginx
-      websites: "{{ node_applications }}"
-  tasks:
-    - name: Ensures public dirs exists
-      file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
-      with_items: "{{ node_applications }}"
-    
-    - name: Copy ecosystem file  
-
-    - name: Start or reload applications
-      shell: "pm2 startOrReload /var/www/ecosystem.config.js"
-
-
+    - role: node_applications

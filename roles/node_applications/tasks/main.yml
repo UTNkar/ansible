@@ -1,0 +1,48 @@
+---
+
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - git
+      - sqlite3
+
+- name: Ensures public dirs exists
+  file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
+  with_items: "{{ node_applications }}"
+
+- name: Clone git repo
+  git:
+    repo: "{{ item.git_repo }}"
+    dest: "{{ item.web_root }}/public"
+  with_items: "{{ node_applications }}"
+  register: services_git
+  notify:
+    - perform reload
+
+- name: Install dependencies
+  npm:
+    path: "{{item.web_root}}/public"
+    production: yes
+  with_items: "{{ node_applications }}"
+  register: services_deps
+  notify: 
+    - perform reload
+
+- name: Add application as a service
+  template:
+    src: application_service.j2
+    dest: "/etc/systemd/system/{{ item.fqdn }}.service"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ node_applications }}"
+  notify:
+    - perform reload
+
+- name: Ensure all services are enabled
+  systemd:
+    name: "{{ item.fqdn }}"
+    state: started
+  with_items: "{{ node_applications }}"
