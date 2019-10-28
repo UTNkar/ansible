@@ -3,7 +3,7 @@
   listen: perform reload 
   service: 
     name: "{{item.fqdn}}"
-    state: reloaded
+    state: restarted
   with_items: 
     - "{{services_git.results}}"
     - "{{services_deps.results}}"
