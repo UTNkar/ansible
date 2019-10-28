@@ -21,6 +21,9 @@
   notify:
     - perform reload
 
+- name: Tell npm to use root as user
+  shell: "npm config set user=0"
+
 - name: Install dependencies
   npm:
     path: "{{item.web_root}}/public"
@@ -29,6 +32,16 @@
   register: services_deps
   notify: 
     - perform reload
+
+- name: Fix permissions
+  file: 
+    path: "{{ item.web_root }}/public"
+    owner: "{{ item.user }}"
+    group: www-data
+    state: directory
+    recurse: true
+    mode: "u=rw,g=r,o="
+  with_items: "{{ node_applications }}"
 
 - name: Add application as a service
   template:
