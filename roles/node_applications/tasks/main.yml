@@ -18,6 +18,7 @@
     dest: "{{ item.web_root }}/public"
   with_items: "{{ node_applications }}"
   register: services_git
+  tags: git
   notify:
     - perform reload
 
