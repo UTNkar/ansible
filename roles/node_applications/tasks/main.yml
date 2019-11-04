@@ -55,8 +55,9 @@
   notify:
     - perform reload
 
-- name: Ensure all services are enabled
+- name: Start all services and make them start on boot
   systemd:
     name: "{{ item.fqdn }}"
+    enabled: yes
     state: started
   with_items: "{{ node_applications }}"
