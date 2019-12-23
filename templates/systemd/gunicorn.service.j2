@@ -19,6 +19,11 @@ Environment="DJANGO_SECRET={{ django_secret_key }}"
 Environment="DJANGO_DB_PASS={{ db_password }}"
 Environment="MEMBERSHIP_API_PASSWORD={{ api_password }}"
 Environment="SENTRY_DSN={{ sentry_dsn }}"
-
+Environment="MELOS_ADMIN={{ melos_password }}"
+Environment="MELOS_URL={{ melos_url }}"
+Environment="MELOS_ORG_ID={{ melos_org_id }}"
+Environment="FACEBOOK_APP_ID={{ facebook_app_id }}"
+Environment="INSTAGRAM_ACCESS_TOKEN={{ instagram_access_token }}"
+Environment="GOOGLE_API_KEY={{ google_api_key }}"
 [Install]
 WantedBy=multi-user.target
