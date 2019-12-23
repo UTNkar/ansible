@@ -34,6 +34,14 @@ api_password: "{{ vault_moore_api_password }}"
 django_secret_key: "{{ vault_moore_key }}"
 sentry_dsn: "{{ vault_moore_sentry_dsn }}"
 
+melos_url: "{{ vault_melos_url }}"
+melos_org_id: "{{ vault_melos_org_id }}"
+melos_password: "{{ vault_melos_password }}"
+
+facebook_app_id: "{{ vault_facebook_app_id }}"
+instagram_access_token: "{{ vault_instagram_access_token }}"
+google_api_key: "{{ vault_google_api_key }}"
+
 # apt packages
 system_packages:
   - git
