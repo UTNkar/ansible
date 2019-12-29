@@ -28,10 +28,9 @@ server_name: dev.utn.se, apply.utn.se, utnarm.utn.se, grus.utn.se, iupak.utn.se,
 
 db_name: moore
 db_user: moore
-db_password: "{{ vault_moore_password }}"
+db_password: "{{ vault_moore_db_password }}"
 
-api_password: "{{ vault_moore_api_password }}"
-django_secret_key: "{{ vault_moore_key }}"
+django_secret_key: "{{ vault_moore_secret_key }}"
 sentry_dsn: "{{ vault_moore_sentry_dsn }}"
 
 melos_url: "{{ vault_melos_url }}"
@@ -49,5 +48,3 @@ system_packages:
   - python3
   - python3-pip
   - python3-venv
-  - python3-psycopg2
-  - python-psycopg2 # for Ansible
