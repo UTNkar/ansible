@@ -24,7 +24,7 @@ process_group: "www-data"
 
 
 # the dns name or names (space separated) for your server
-server_name: dev.utn.se, apply.utn.se, utnarm.utn.se, grus.utn.se, iupak.utn.se, sangbok.utn.se, balen.utn.se, dev.forsranningen.utn.se
+server_name: dev.utn.se, apply.utn.se, utnarm.utn.se, grus.utn.se, iupak.utn.se, sangbok.utn.se, balen.utn.se, dev.forsranningen.utn.se, utnarm.se
 
 db_name: moore
 db_user: moore
