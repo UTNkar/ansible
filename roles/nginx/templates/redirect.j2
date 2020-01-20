@@ -1,9 +1,0 @@
-server {
-    listen 80;
-    listen [::]:80;
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
-
-    server_name {{ item.fqdn }};
-    rewrite ^ https://{{item.new_link}}$request_uri? permanent;
-}

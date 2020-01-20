@@ -1,5 +1,0 @@
----
-websites:
-  - fqdn: "w.utn.se"
-    template: "redirect"
-    new_link: "wsektionen.se"
