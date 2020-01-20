@@ -1,0 +1,8 @@
+---
+- hosts: drupal7
+  vars_files: 
+    - vars/redirects.yml
+  become: yes
+  roles: 
+    - role: nginx
+      websites: "{{ websites }}"
