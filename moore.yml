@@ -7,8 +7,9 @@
   tags: setup
   tasks:
     - name: install system packages
-      apt: pkg={{ item }} update-cache=yes
-      with_items: "{{ system_packages }}"
+      apt: 
+        pkg: "{{ system_packages }}"
+        update-cache: yes
 
     - name: install gunicorn
       pip:
