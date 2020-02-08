@@ -4,3 +4,4 @@ dependencies:
     databases: "{{ areas }}"
   - role: nginx
     websites: "{{ areas }}"
+    tags: "nginx"
