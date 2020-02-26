@@ -4,7 +4,13 @@ custom_installations:
     web_root: "/var/www/rallybot.utn.se"
     user: "rally"
     template: "php-application"
+  - fqdn: "best.utn.se"
+    web_root: "/var/www/bestuppsala.se"
+    user: "best"
+    template: "wordpress"
 
 custom_databases:
   - database: "rallybot"
     password: "{{ vault_rally_password }}"
+  - database: "best"
+    password: "{{ vault_best_password }}"
