@@ -127,6 +127,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/x.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "best"
+    groups: ""
+    home: "/var/www/bestuppsala.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/best.pub') }}"
+    hosts:
+      - "babbage.utn.se"
   - name: "furedal"
     groups: "{{ admin_groups }}"
     home: "/home/swace"
