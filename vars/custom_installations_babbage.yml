@@ -5,7 +5,7 @@ custom_installations:
     user: "rally"
     template: "php-application"
   - fqdn: "best.utn.se"
-    web_root: "/var/www/bestuppsala.se"
+    web_root: "/var/www/best.utn.se"
     user: "best"
     template: "wordpress"
 
