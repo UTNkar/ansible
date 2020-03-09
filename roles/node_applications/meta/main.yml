@@ -4,6 +4,7 @@ dependencies:
       websites: "{{ node_applications }}"
     
   - role: geerlingguy.nodejs
+    tags: "node"
     vars:
       nodejs_version: 12.x
       nodejs_install_npm_user: root

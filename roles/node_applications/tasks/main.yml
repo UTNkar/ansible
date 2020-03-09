@@ -17,7 +17,6 @@
     repo: "{{ item.git_repo }}"
     dest: "{{ item.web_root }}/public"
   with_items: "{{ node_applications }}"
-  register: services_git
   tags: git
   notify:
     - perform reload
@@ -30,7 +29,6 @@
     path: "{{item.web_root}}/public"
     production: yes
   with_items: "{{ node_applications }}"
-  register: services_deps
   notify: 
     - perform reload
 
@@ -41,7 +39,7 @@
     group: www-data
     state: directory
     recurse: true
-    mode: "u=rwx,g=rx,o="
+    mode: "u=rwX,g=rX,o="
   with_items: "{{ node_applications }}"
 
 - name: Add application as a service

@@ -5,10 +5,7 @@
     name: "{{item.fqdn}}"
     state: restarted
   with_items: 
-    - "{{services_git.results | default([]) }}"
-    - "{{services_deps.results | default([]) }}"
-  when: item is changed
-
+    - "{{ node_applications }}"
 
 - name: reload systemd daemon
   listen: perform reload
