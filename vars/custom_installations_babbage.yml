@@ -8,9 +8,15 @@ custom_installations:
     web_root: "/var/www/best.utn.se"
     user: "best"
     template: "wordpress"
+  - fqdn: "es20.se"
+    web_root: "/var/www/es20.se"
+    user: "es20"
+    template: "php-application"
 
 custom_databases:
   - database: "rallybot"
     password: "{{ vault_rally_password }}"
   - database: "best"
     password: "{{ vault_best_password }}"
+  - database: "es20"
+    password: "{{ vault_es20_password }}"
