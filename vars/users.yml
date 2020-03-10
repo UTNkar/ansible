@@ -129,7 +129,7 @@ users:
       - "babbage.utn.se"
   - name: "best"
     groups: ""
-    home: "/var/www/bestuppsala.se"
+    home: "/var/www/best.utn.se"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/best.pub') }}"
     hosts:
