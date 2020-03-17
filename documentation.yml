@@ -4,19 +4,37 @@
   vars:
     url: "docs.utn.se"
     repo: "https://github.com/UTNkar/documentation.git"
-    web_root: "/var/www/docs.utn.se"
+    web_root: "/home/hugo/docs.utn.se"
   become: yes
   pre_tasks:
+    - name: Create user for hugo
+      user:
+        name: hugo
+        shell: "/bin/bash"
+     
     - name: Get git repository
-      git: repo={{ repo }} dest={{ web_root }} accept_hostkey=yes
+      git: 
+        repo: "{{ repo }}" 
+        dest: "{{ web_root }}" 
+        accept_hostkey: yes
+      become_user: hugo
+
     - name: Install Hugo
-      apt: name=hugo state=present
+      snap:
+        name: hugo
+
     - name: Hugo Generate
       shell: hugo
       args:
         chdir: "{{ web_root }}"
+      become_user: hugo
+
     - name: Fix permissions
-      file: path={{ web_root }} group=www-data recurse=yes
+      file: 
+        path: "{{ web_root }}"
+        owner: hugo
+        group: www-data
+        recurse: yes
   roles:
     - role: nginx
       websites:
