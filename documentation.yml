@@ -1,3 +1,12 @@
+# Hugo is installed via snap since it provides the latest version of hugo.
+# There is a version of hugo availabe via apt however it is poorly
+# maintained and lie many versions behind (as of 17/3 2020).
+
+# Since snap only give access to home directories for the snap, a user
+# called hugo has to be used where the website files are generated.
+# The reason for having a seperate user is that it will outlive the
+# users created for the system administrators.
+
 ---
 - name: Deploy Documentation website
   hosts: application
