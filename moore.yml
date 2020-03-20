@@ -114,6 +114,7 @@
       service: name={{process_name}} state=started enabled=yes
   roles:
     - role: nginx
+      tags: nginx
       websites:
         - fqdn: "{{ server_name }}"
           file: "moore.utn.se"
