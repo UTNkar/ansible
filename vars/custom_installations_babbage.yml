@@ -12,6 +12,11 @@ custom_installations:
     web_root: "/var/www/es20.se"
     user: "es20"
     template: "php-application"
+  - fqdn: "pay.utn.se"
+    web_root: "/var/www/pay.utn.se"
+    user: "dfehrm"
+    template: "codeigniter"
+
 
 custom_databases:
   - database: "rallybot"
@@ -20,3 +25,5 @@ custom_databases:
     password: "{{ vault_best_password }}"
   - database: "es20"
     password: "{{ vault_es20_password }}"
+  - database: "pay"
+    password: "{{ vault_pay_password }}"
