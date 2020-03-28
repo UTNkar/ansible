@@ -10,6 +10,7 @@
   roles:
     - role: nginx
       websites: "{{ custom_installations }}"
+      tags: nginx
   tasks:
     - name: Install dependencies for custom installations
       apt:
@@ -73,3 +74,4 @@
   roles:
     - role: mysql
       databases: "{{ custom_databases }}"
+  tags: database
