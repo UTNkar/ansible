@@ -16,6 +16,11 @@ custom_installations:
     web_root: "/var/www/pay.utn.se"
     user: "dfehrm"
     template: "codeigniter"
+  - fqdn: "e-dev.utn.se"
+    web_root: "/var/www/e-dev.utn.se"
+    user: "e"
+    template: "wordpress"
+
 
 
 custom_databases:
@@ -27,3 +32,5 @@ custom_databases:
     password: "{{ vault_es20_password }}"
   - database: "pay"
     password: "{{ vault_pay_password }}"
+  - database: "e"
+    password: "{{ vault_e_password }}"
