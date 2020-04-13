@@ -27,7 +27,7 @@
 
     - name: create database user
       become_user: postgres
-      postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL
+      postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL encrypted=yes
 
     - name: create system user
       action: user name={{ process_name }} shell=/sbin/nologin system='yes'
