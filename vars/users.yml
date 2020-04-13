@@ -141,5 +141,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/es20.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "e"
+    groups: ""
+    home: "/var/www/e-dev.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/e.pub') }}"
+    hosts:
+      - "babbage.utn.se"
+
 
 old_users: []
