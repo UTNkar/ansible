@@ -21,6 +21,17 @@
       file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
       with_items: "{{ custom_installations }}"
 
+    - name: Change permission on wp-content (Wordpress only)
+      file:
+        path: "{{item.web_root}}/public/wp-content"
+        state: directory
+        owner: "{{ item.user }}"
+        group: www-data
+        recurse: true
+        mode: "u=rwX,g=rwX,o=rX"
+      with_items: "{{ custom_installations }}"
+      when: item.template == 'wordpress'
+
     - name: Create Main Log Folder
       file:
         path: "{{ log_path }}"
