@@ -12,15 +12,26 @@
     become_user: "{{ process_user }}"
 
 - name: make sure postgresql server is running
-  service: name=postgresql state=started
+  service: 
+    name: postgresql
+    state: started
 
 - name: create database
   become_user: postgres
-  postgresql_db: name={{ db_name }}
+  postgresql_db: 
+    name: "{{ db_name }}"
 
 - name: create database user
   become_user: postgres
-  postgresql_user: db={{ db_name }} name={{ db_user }} password={{ db_password }} priv=ALL encrypted=yes
+  postgresql_user: 
+    db: "{{ db_name }}"
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: ALL
+    encrypted: yes
 
 - name: create system user
-  action: user name={{ process_name }} shell=/sbin/nologin system='yes'
+  user: 
+    name: "{{ process_name }}" 
+    shell: /sbin/nologin 
+    system: yes

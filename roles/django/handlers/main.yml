@@ -1,8 +1,19 @@
 - name: restart socket
-  systemd: name={{process_name}}.socket state=stopped daemon_reload=yes
+  systemd:
+    name: "{{process_name}}.socket"
+    state: stopped
+    daemon_reload: yes
 
 - name: restart gunicorn
-  systemd: name={{process_name}}.service state=restarted daemon_reload=yes
+  systemd:
+    name: "{{process_name}}.service"
+    state: restarted
+    daemon_reload: yes
 
 - name: fix permissions
-  file: path={{ install_root }}/{{ project_name }} state=directory owner={{ process_user }} group={{ process_group }} recurse=yes
+  file: 
+    path: "{{ install_root }}/{{ project_name }}"
+    state: directory
+    owner: "{{ process_user }}"
+    group: "{{ process_group }}"
+    recurse: yes
