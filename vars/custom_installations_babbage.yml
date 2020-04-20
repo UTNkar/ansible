@@ -16,8 +16,8 @@ custom_installations:
     web_root: "/var/www/pay.utn.se"
     user: "dfehrm"
     template: "codeigniter"
-  - fqdn: "e-dev.utn.se"
-    web_root: "/var/www/e-dev.utn.se"
+  - fqdn: "e.utn.se"
+    web_root: "/var/www/e.utn.se"
     user: "e"
     template: "wordpress"
 
