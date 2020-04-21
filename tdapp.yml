@@ -1,0 +1,8 @@
+---
+- hosts: django
+  vars_files:
+    - vars/passwords.yml
+    - vars/tdapp.yml
+  become: yes
+  roles:
+    - role: django
