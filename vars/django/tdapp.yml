@@ -1,31 +1,22 @@
 ---
 # a unix path-friendly name (IE, no spaces or special characters)
-project_name: moore
+project_name: admininterface
 
 wsgi_module: moore.wsgi
 django_settings: moore.settings.production
 
 # the git repository URL for the project
-project_repo: https://github.com/UTNkar/moore.git
+project_repo: git@github.com:UTNkar/TD-app-admin-interface.git
 
-process_name: "moore"
-process_user: "moore"
+process_name: "admininterface"
+process_user: "admininterface"
 process_group: "www-data"
 
 # the dns name or names (comma separated) for your server
-server_name: dev.utn.se, apply.utn.se, grus.utn.se, iupak.utn.se, sangbok.utn.se, balen.utn.se, forsranningen.utn.se, utnarm.se, dev-rally.utn.se, dv.utn.se
+server_name: tdapp.utn.se
 
-db_name: moore
-db_user: moore
-db_password: "{{ vault_moore_db_password }}"
+db_name: admininterface
+db_user: admininterface
+db_password: "{{ vault_admininterface_db_password }}"
 
-django_secret_key: "{{ vault_moore_secret_key }}"
-sentry_dsn: "{{ vault_moore_sentry_dsn }}"
-
-melos_url: "{{ vault_melos_url }}"
-melos_org_id: "{{ vault_melos_org_id }}"
-melos_password: "{{ vault_melos_password }}"
-
-facebook_app_id: "{{ vault_facebook_app_id }}"
-instagram_access_token: "{{ vault_instagram_access_token }}"
-google_api_key: "{{ vault_google_api_key }}"
+django_secret_key: "{{ vault_admininterface_secret_key }}"
