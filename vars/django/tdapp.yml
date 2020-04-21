@@ -2,8 +2,8 @@
 # a unix path-friendly name (IE, no spaces or special characters)
 project_name: admininterface
 
-wsgi_module: moore.wsgi
-django_settings: moore.settings.production
+wsgi_module: adminInterface.wsgi
+django_settings: adminInterface.settings.production
 
 # the git repository URL for the project
 project_repo: git@github.com:UTNkar/TD-app-admin-interface.git
