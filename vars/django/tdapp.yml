@@ -20,3 +20,4 @@ db_user: admininterface
 db_password: "{{ vault_admininterface_db_password }}"
 
 django_secret_key: "{{ vault_admininterface_secret_key }}"
+sentry_dsn: "{{ vault_admininterface_sentry_dsn }}"
