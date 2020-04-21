@@ -2,26 +2,15 @@
 # a unix path-friendly name (IE, no spaces or special characters)
 project_name: moore
 
-# the base path to install to. You should not need to change this.
-install_root: /var/www
-
 wsgi_module: moore.wsgi
 django_settings: moore.settings.production
-
-# any directories that need to be added to the PYTHONPATH.
-pythonpath: "{{ install_root }}/{{ project_name }}/src"
-virtualenv: "{{ install_root }}/{{ project_name }}/venv"
 
 # the git repository URL for the project
 project_repo: https://github.com/UTNkar/moore.git
 
-static_root: "{{ pythonpath }}/static/"
-media_root: "{{ pythonpath }}/media/"
-
 process_name: "moore"
 process_user: "moore"
 process_group: "www-data"
-
 
 # the dns name or names (comma separated) for your server
 server_name: dev.utn.se, apply.utn.se, grus.utn.se, iupak.utn.se, sangbok.utn.se, balen.utn.se, forsranningen.utn.se, utnarm.se, dev-rally.utn.se, dv.utn.se
@@ -40,11 +29,3 @@ melos_password: "{{ vault_melos_password }}"
 facebook_app_id: "{{ vault_facebook_app_id }}"
 instagram_access_token: "{{ vault_instagram_access_token }}"
 google_api_key: "{{ vault_google_api_key }}"
-
-# apt packages
-system_packages:
-  - git
-  - postgresql
-  - python3
-  - python3-pip
-  - python3-venv

@@ -1,0 +1,17 @@
+# the base path to install to. You should not need to change this.
+install_root: /var/www
+
+# any directories that need to be added to the PYTHONPATH.
+pythonpath: "{{ install_root }}/{{ project_name }}/src"
+virtualenv: "{{ install_root }}/{{ project_name }}/venv"
+
+static_root: "{{ pythonpath }}/static/"
+media_root: "{{ pythonpath }}/media/"
+
+# apt packages
+system_packages:
+  - git
+  - postgresql
+  - python3
+  - python3-pip
+  - python3-venv
