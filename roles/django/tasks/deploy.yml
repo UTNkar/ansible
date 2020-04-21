@@ -37,7 +37,8 @@
     path: "{{ install_root }}/{{ project_name }}"
     state: directory
     owner: "{{ process_user }}"
-    group: "{{ process_group }} recurse=yes"
+    group: "{{ process_group }}"
+    recurse: yes
 
 - name: django collectstatic
   django_manage:
