@@ -4,5 +4,6 @@
     - vars/passwords.yml
     - vars/tdapp.yml
   become: yes
+  become_flags: -HE # Keep the ssh-agent when using sudo so that private github repo can be pulled. Requires that you have your ssh key added in an ssh-agent
   roles:
     - role: django
