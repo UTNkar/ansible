@@ -22,15 +22,15 @@
   become_user: "{{process_user}}"
 
 - name: django migrate
+  become_user: "{{process_user}}"
+  environment:
+    DJANGO_SECRET: "{{ django_secret_key }}"
+    DJANGO_DB_PASS: "{{ db_password }}"
   django_manage:
     command: migrate
     app_path: "{{ pythonpath }}"
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
-    become_user: "{{process_user}}"
-    environment:
-      DJANGO_SECRET: "{{ django_secret_key }}"
-      DJANGO_DB_PASS: "{{ db_password }}"
 
 - name: fix permissions
   file:

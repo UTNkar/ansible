@@ -9,7 +9,7 @@
     name: gunicorn
     virtualenv: "{{ virtualenv }}"
     virtualenv_command: "pyvenv"
-    become_user: "{{ process_user }}"
+  become_user: "{{ process_user }}"
 
 - name: make sure postgresql server is running
   service: 
