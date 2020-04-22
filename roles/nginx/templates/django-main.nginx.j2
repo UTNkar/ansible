@@ -1,12 +1,7 @@
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	listen 80;
+	listen [::]:80;
 	server_name _;
-
-	location ~* /.well-known/ {
-		allow all;
-		root /var/www/moore/src/media/;
-	}
 
 	location / {
 		return 301 https://$host$request_uri;
