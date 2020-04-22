@@ -17,3 +17,10 @@
     owner: "{{ process_user }}"
     group: "{{ process_group }}"
     recurse: yes
+  notify: 
+  - fix permission on private key
+
+- name: fix permission on private key
+  file:
+    path: "{{ install_root }}/{{ project_name }}/adminInterface/admininterface-privatekey.json"
+    mode: '0640'

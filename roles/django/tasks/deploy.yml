@@ -8,7 +8,19 @@
   - restart socket
   - restart gunicorn
   - fix permissions
-  become_user: "{{process_user}}"
+
+- name: Copy firebase private key
+  copy:
+    src: "files/admininterface-privatekey.json"
+    dest: "{{ install_root }}/{{ project_name }}/adminInterface/admininterface-privatekey.json"
+    owner: "{{ process_user }}"
+    group: "{{ process_group }}"
+    mode: '0640'
+  when: project_name == 'admininterface'
+  notify:
+  - restart socket
+  - restart gunicorn
+  - fix permissions
 
 - name: install python packages
   pip:
@@ -26,6 +38,7 @@
   environment:
     DJANGO_SECRET: "{{ django_secret_key }}"
     DJANGO_DB_PASS: "{{ db_password }}"
+    GOOGLE_APPLICATION_CREDENTIALS: "admininterface-privatekey.json"
   django_manage:
     command: migrate
     app_path: "{{ pythonpath }}"
