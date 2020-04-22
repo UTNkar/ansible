@@ -1,8 +1,9 @@
 ---
-- hosts: django
+- name: Install admininterface
+  hosts: django
   vars_files:
     - vars/passwords.yml
-    - vars/admininterface.yml
+    - vars/django/admininterface.yml
   become: yes
   become_flags: -HE # Keep the ssh-agent when using sudo so that private github repo can be pulled. Requires that you have your ssh key added in an ssh-agent
   roles:
