@@ -17,8 +17,6 @@
     owner: "{{ process_user }}"
     group: "{{ process_group }}"
     recurse: yes
-  notify: 
-  - fix permission on private key
 
 - name: fix permission on private key
   file:

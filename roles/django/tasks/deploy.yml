@@ -8,6 +8,7 @@
   - restart socket
   - restart gunicorn
   - fix permissions
+  - fix permission on private key
 
 - name: Copy firebase private key
   copy:
@@ -21,6 +22,7 @@
   - restart socket
   - restart gunicorn
   - fix permissions
+  - fix permission on private key
 
 - name: Update pip
   pip: 
@@ -38,6 +40,7 @@
   - restart socket
   - restart gunicorn
   - fix permissions
+  - fix permission on private key
   become_user: "{{process_user}}"
 
 - name: django migrate
