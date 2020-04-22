@@ -2,7 +2,7 @@
 - hosts: django
   vars_files:
     - vars/passwords.yml
-    - vars/moore.yml
+    - vars/django/moore.yml
   become: yes
   roles:
     - role: django
