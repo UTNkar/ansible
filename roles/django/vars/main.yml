@@ -2,7 +2,6 @@
 install_root: /var/www
 
 # any directories that need to be added to the PYTHONPATH.
-pythonpath: "{{ install_root }}/{{ project_name }}/src"
 virtualenv: "{{ install_root }}/{{ project_name }}/venv"
 
 static_root: "{{ pythonpath }}/static/"

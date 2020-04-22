@@ -8,6 +8,8 @@ django_settings: adminInterface.settings.production
 # the git repository URL for the project
 project_repo: git@github.com:UTNkar/TD-app-admin-interface.git
 
+pythonpath: "{{ install_root }}/{{ project_name }}/adminInterface"
+
 process_name: "admininterface"
 process_user: "admininterface"
 process_group: "www-data"
