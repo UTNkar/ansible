@@ -10,6 +10,14 @@
     shell: /sbin/nologin 
     system: yes
 
+- name: create site folder
+  file:
+    path: "{{ install_root }}/{{ project_name }}"
+    state: directory
+    mode: '0755'
+    owner: '{{ process_user }}'
+    group: '{{ process_group }}'
+
 - name: make sure postgresql server is running
   service: 
     name: postgresql
