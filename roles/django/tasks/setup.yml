@@ -4,12 +4,11 @@
     pkg: "{{ system_packages }}"
     update-cache: yes
 
-- name: install gunicorn
-  pip:
-    name: gunicorn
-    virtualenv: "{{ virtualenv }}"
-    virtualenv_command: "pyvenv"
-  become_user: "{{ process_user }}"
+- name: create system user
+  user: 
+    name: "{{ process_user }}" 
+    shell: /sbin/nologin 
+    system: yes
 
 - name: make sure postgresql server is running
   service: 
@@ -29,9 +28,3 @@
     password: "{{ db_password }}"
     priv: ALL
     encrypted: yes
-
-- name: create system user
-  user: 
-    name: "{{ process_name }}" 
-    shell: /sbin/nologin 
-    system: yes
