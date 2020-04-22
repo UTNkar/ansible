@@ -14,15 +14,10 @@ ExecStart={{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
-Environment="DJANGO_SETTINGS_MODULE={{ django_settings }}"
-Environment="DJANGO_SECRET={{ django_secret_key }}"
-Environment="DJANGO_DB_PASS={{ db_password }}"
-Environment="SENTRY_DSN={{ sentry_dsn }}"
-Environment="MELOS_ADMIN={{ melos_password }}"
-Environment="MELOS_URL={{ melos_url }}"
-Environment="MELOS_ORG_ID={{ melos_org_id }}"
-Environment="FACEBOOK_APP_ID={{ facebook_app_id }}"
-Environment="INSTAGRAM_ACCESS_TOKEN={{ instagram_access_token }}"
-Environment="GOOGLE_API_KEY={{ google_api_key }}"
+
+{% for variable in environment_variables %}
+Environment="{{ variable }}={{ environment_variables[variable] }}"
+{% endfor %}
+
 [Install]
 WantedBy=multi-user.target
