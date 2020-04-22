@@ -12,11 +12,4 @@
   import_role:
     name: nginx
   vars:
-    websites:
-      - fqdn: "{{ server_name }}"
-        file: "moore.utn.se"
-        certfile: "moore.utn.se"
-        template: "django-https"
-        static_root: "{{ static_root }}"
-        media_root: "{{ media_root }}"
-        process_name: "{{ process_name }}"
+    websites: "{{ website }}"
