@@ -22,6 +22,10 @@
   when: inventory_hostname in item.hosts
 
 - name: Add Public Keys
-  authorized_key: user={{ item.name }} key="{{ item.ssh_pubkey }}" state=present exclusive=yes
+  authorized_key: 
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_pubkey }}" 
+    state: present
+    exclusive: yes
   with_items: "{{ users }}"
   when: inventory_hostname in item.hosts
