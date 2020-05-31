@@ -22,3 +22,4 @@
   file:
     path: "{{ install_root }}/{{ project_name }}/adminInterface/admininterface-privatekey.json"
     mode: '0640'
+  when: project_name == 'admininterface'
