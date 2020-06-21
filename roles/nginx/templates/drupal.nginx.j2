@@ -12,8 +12,8 @@ server {
   root {{ item.web_root }}/public;
 
   # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
-  ssl_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ item.fqdn }}/privkey.pem;
+  ssl_certificate /etc/ssl/utn.se.pem;
+  ssl_certificate_key /etc/ssl/utn.se.key;
   ssl_session_timeout 1d;
   ssl_session_cache shared:SSL:50m;
   ssl_session_tickets off;
