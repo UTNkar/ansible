@@ -80,7 +80,6 @@
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
   become_user: "{{process_user}}"
-  when: project_name == 'moore'
 
 - name: install gunicorn
   pip:
