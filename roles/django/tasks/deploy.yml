@@ -5,10 +5,10 @@
     accept_hostkey: yes
     version: master
   notify:
-  - restart socket
-  - restart gunicorn
-  - fix permissions
-  - fix permission on private key
+    - restart socket
+    - restart gunicorn
+    - fix permissions
+    - fix permission on private key
 
 - name: Copy firebase private key
   copy:
@@ -16,16 +16,16 @@
     dest: "{{ install_root }}/{{ project_name }}/adminInterface/admininterface-privatekey.json"
     owner: "{{ process_user }}"
     group: "{{ process_group }}"
-    mode: '0640'
+    mode: "0640"
   when: project_name == 'admininterface'
   notify:
-  - restart socket
-  - restart gunicorn
-  - fix permissions
-  - fix permission on private key
+    - restart socket
+    - restart gunicorn
+    - fix permissions
+    - fix permission on private key
 
 - name: Update pip
-  pip: 
+  pip:
     name: pip
     state: latest
     virtualenv: "{{ virtualenv }}"
@@ -37,10 +37,10 @@
     virtualenv: "{{ virtualenv }}"
     virtualenv_command: "pyvenv"
   notify:
-  - restart socket
-  - restart gunicorn
-  - fix permissions
-  - fix permission on private key
+    - restart socket
+    - restart gunicorn
+    - fix permissions
+    - fix permission on private key
   become_user: "{{process_user}}"
 
 - name: django migrate
@@ -48,7 +48,6 @@
   environment:
     DJANGO_SECRET: "{{ django_secret_key }}"
     DJANGO_DB_PASS: "{{ db_password }}"
-    GOOGLE_APPLICATION_CREDENTIALS: "admininterface-privatekey.json"
   django_manage:
     command: migrate
     app_path: "{{ pythonpath }}"
@@ -70,7 +69,7 @@
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
   notify:
-  - fix permissions
+    - fix permissions
   become_user: "{{process_user}}"
 
 - name: django cron
@@ -92,32 +91,32 @@
   template:
     src: templates/systemd/gunicorn.service.j2
     dest: "/etc/systemd/system/{{process_name}}.service"
-    mode: '600'
+    mode: "600"
   vars:
     working_dir: "{{ pythonpath }}"
   notify:
-  - restart socket
-  - restart gunicorn
+    - restart socket
+    - restart gunicorn
 
 - name: copy gunicorn socket config
   template:
     src: templates/systemd/gunicorn.socket.j2
     dest: "/etc/systemd/system/{{process_name}}.socket"
-    mode: '600'
+    mode: "600"
   notify:
-  - restart socket
-  - restart gunicorn
+    - restart socket
+    - restart gunicorn
 
 - name: copy gunicorn tmpfiles config
   template:
     src: templates/systemd/tmpfiles.gunicorn.conf.j2
     dest: "/etc/tmpfiles.d/{{process_name}}.conf"
   notify:
-  - restart socket
-  - restart gunicorn
+    - restart socket
+    - restart gunicorn
 
 - name: make sure gunicorn server is running
-  service: 
+  service:
     name: "{{process_name}}"
-    state: started 
+    state: started
     enabled: yes
