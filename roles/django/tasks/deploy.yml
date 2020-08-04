@@ -79,6 +79,8 @@
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
   become_user: "{{process_user}}"
+  environment:
+    SENTRY_DSN: "{{ environment_variables.SENTRY_DSN }}"
 
 - name: install gunicorn
   pip:
