@@ -4,7 +4,7 @@
   hosts: drupal7
   become: yes
   vars:
-        log_path: /var/log/nginx/sites
+    log_path: /var/log/nginx/sites
   vars_files:
     - vars/custom_installations_babbage.yml
   roles:
