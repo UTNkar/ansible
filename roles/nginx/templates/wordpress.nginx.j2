@@ -1,5 +1,6 @@
 {% extends "base.j2" %}
 {% block content %}
+  error_log /var/log/nginx/sites/{{ item.fqdn }}/error_log.log;
   index index.php index.html index.htm;
 
   location / {
