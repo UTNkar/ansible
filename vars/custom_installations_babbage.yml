@@ -20,6 +20,10 @@ custom_installations:
     web_root: "/var/www/e.utn.se"
     user: "e"
     template: "wordpress"
+  - fqdn: "iupak.utn.se"
+    web_root: "/var/www/iupak.utn.se"
+    user: "www-data"
+    template: "wordpress"    
 
 
 
@@ -34,3 +38,5 @@ custom_databases:
     password: "{{ vault_pay_password }}"
   - database: "e"
     password: "{{ vault_e_password }}"
+  - database: "iupak"
+    password: "{{ vault_iupak_password }}"
