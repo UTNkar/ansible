@@ -1,0 +1,7 @@
+{% extends "base.j2" %}
+{% block content %}
+  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+    expires max;
+    log_not_found off;
+  }
+{% endblock %}

@@ -1,5 +1,6 @@
-{% extends "base.j2" %}
+{% extends "non-django-base.j2" %}
 {% block content %}
+  {{ super() }}
   location ~ \..*/.*\.php$ {
     return 403;
   }

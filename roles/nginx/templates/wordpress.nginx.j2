@@ -1,5 +1,6 @@
-{% extends "base.j2" %}
+{% extends "non-django-base.j2" %}
 {% block content %}
+  {{ super() }}
   error_log /var/log/nginx/sites/{{ item.fqdn }}/error_log.log;
   index index.php index.html index.htm;
 
