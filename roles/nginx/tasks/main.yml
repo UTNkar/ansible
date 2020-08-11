@@ -29,11 +29,11 @@
 - name: Allow HTTP connections
   ufw:
     rule: allow
-    port: 80
+    port: '80'
     proto: tcp
 
 - name: Allow HTTPS connections
   ufw:
     rule: allow
-    port: 443
+    port: '443'
     proto: tcp
