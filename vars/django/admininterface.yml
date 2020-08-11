@@ -26,8 +26,6 @@ sentry_dsn: "{{ vault_admininterface_sentry_dsn }}"
 
 website:
   - fqdn: "{{ server_name }}"
-    file: "tdapp.utn.se"
-    certfile: "tdapp.utn.se"
     template: "django"
     static_root: "{{ static_root }}"
     media_root: "{{ media_root }}"

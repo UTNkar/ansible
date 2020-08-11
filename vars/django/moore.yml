@@ -35,7 +35,6 @@ google_api_key: "{{ vault_google_api_key }}"
 website:
   - fqdn: "{{ server_name }}"
     file: "moore.utn.se"
-    certfile: "moore.utn.se"
     template: "django"
     static_root: "{{ static_root }}"
     media_root: "{{ media_root }}"

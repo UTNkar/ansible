@@ -1,24 +1,39 @@
 ---
 - name: Install dependencies
-  apt: name=nginx state=present
+  apt:
+    name: nginx
+    state: present
 
 - name: Remove default NGINX site
-  file: path=/etc/nginx/sites-enabled/default state=absent
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
 
 - name: Add NGINX configuration
-  template: src={{ item.template }}.nginx.j2 dest=/etc/nginx/sites-available/{{ item.file | default(item.fqdn) }}
+  template:
+    src: "{{ item.template }}.nginx.j2"
+    dest: "/etc/nginx/sites-available/{{ item.file | default(item.fqdn) }}"
   with_items: "{{ websites }}"
   notify:
     - reload nginx
 
 - name: Enable NGINX configuration
-  file: path=/etc/nginx/sites-enabled/{{ item.file | default(item.fqdn) }} src=/etc/nginx/sites-available/{{ item.file | default(item.fqdn) }} state=link
+  file:
+    path: "/etc/nginx/sites-enabled/{{ item.file | default(item.fqdn) }}"
+    src: "/etc/nginx/sites-available/{{ item.file | default(item.fqdn) }}"
+    state: link
   with_items: "{{ websites }}"
   notify:
     - reload nginx
 
 - name: Allow HTTP connections
-  ufw: rule=allow port=80 proto=tcp
+  ufw:
+    rule: allow
+    port: 80
+    proto: tcp
 
 - name: Allow HTTPS connections
-  ufw: rule=allow port=443 proto=tcp
+  ufw:
+    rule: allow
+    port: 443
+    proto: tcp
