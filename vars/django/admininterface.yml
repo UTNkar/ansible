@@ -28,12 +28,12 @@ website:
   - fqdn: "{{ server_name }}"
     file: "tdapp.utn.se"
     certfile: "tdapp.utn.se"
-    template: "https-django"
+    template: "django"
     static_root: "{{ static_root }}"
     media_root: "{{ media_root }}"
     process_name: "{{ process_name }}"
 
-environment_variables: 
+environment_variables:
   GOOGLE_APPLICATION_CREDENTIALS: "admininterface-privatekey.json"
   DJANGO_SETTINGS_MODULE: "{{ django_settings }}"
   DJANGO_SECRET: "{{ django_secret_key }}"

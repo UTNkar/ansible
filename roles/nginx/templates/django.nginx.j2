@@ -1,14 +1,5 @@
-server{
-    listen 80;
-	listen [::]:80;
-	server_name {{ server_name }};
-
-    # Allow "Well-Known URIs" as per RFC 5785
-	location ~* ^/.well-known/ {
-		allow all;
-		root {{media_root}};
-	}
-
+{% extends "base.j2" %}
+{% block content %}
 	location /static/ {
 		alias {{ static_root }};
 	}
@@ -27,4 +18,4 @@ server{
 		proxy_redirect off;
 		proxy_pass http://unix:/run/{{ process_name }}/socket;
 	}
-}
+{% endblock %}
