@@ -4,28 +4,32 @@ custom_installations:
     web_root: "/var/www/rallybot.utn.se"
     user: "rally"
     template: "php-application"
+    create_log: yes
   - fqdn: "best.utn.se"
     web_root: "/var/www/best.utn.se"
     user: "best"
     template: "wordpress"
+    create_log: yes
   - fqdn: "es20.se"
     web_root: "/var/www/es20.se"
     user: "es20"
     template: "php-application"
+    create_log: yes
   - fqdn: "pay.utn.se"
     web_root: "/var/www/pay.utn.se"
     user: "dfehrm"
     template: "codeigniter"
+    create_log: yes
   - fqdn: "e.utn.se"
     web_root: "/var/www/e.utn.se"
     user: "e"
     template: "wordpress"
+    create_log: yes
   - fqdn: "iupak.utn.se"
     web_root: "/var/www/iupak.utn.se"
     user: "www-data"
-    template: "wordpress"    
-
-
+    template: "wordpress"
+    create_log: yes
 
 custom_databases:
   - database: "rallybot"

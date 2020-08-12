@@ -6,6 +6,9 @@
   vars_files:
     - vars/custom_installations.yml
   roles:
+    - role: logs
+      websites: "{{ custom_installations }}"
+      tags: logs
     - role: nginx
       websites: "{{ custom_installations }}"
   tasks:
