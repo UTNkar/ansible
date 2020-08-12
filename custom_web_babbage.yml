@@ -3,11 +3,12 @@
 - name: Deploy custom installations
   hosts: drupal7
   become: yes
-  vars:
-    log_path: /var/log/nginx/sites
   vars_files:
     - vars/custom_installations_babbage.yml
   roles:
+    - role: logs
+      websites: "{{ custom_installations }}"
+      tags: logs
     - role: nginx
       websites: "{{ custom_installations }}"
       tags: nginx
@@ -31,50 +32,6 @@
         mode: "u=rwX,g=rwX,o=rX"
       with_items: "{{ custom_installations }}"
       when: item.template == 'wordpress'
-
-    - name: Create Main Log Folder
-      file:
-        path: "{{ log_path }}"
-        state: directory
-        owner: www-data
-        recurse: true
-        mode: '0775'
-      tags: logs
-
-    - name: Create Log Folders For Sites
-      file: 
-        path: "{{ log_path }}/{{ item.fqdn }}"
-        owner: "{{item.user}}"
-        group: www-data
-        mode: '0775'
-        state: directory
-        recurse: true
-      with_items: "{{ custom_installations }}"
-      tags: logs
-
-      # Since the log files are written by nginx, the owner has to be set to www-data.
-      # Otherwise, nginx will set the owner to www-data by itself and removing read access
-      # for the specified user
-    - name: Create Log File For Sites
-      file: 
-        path: "{{ log_path }}/{{ item.fqdn }}/error_log.log"
-        owner: www-data
-        group: "{{item.user}}"
-        mode: '0640'
-        state: touch
-      with_items: "{{ custom_installations }}"
-      tags: logs
-      notify: reload nginx
-
-    - name: Setup Logrotate
-      template: 
-        src: templates/logrotate.j2
-        dest: "/etc/logrotate.d/{{item.fqdn}}"
-        mode: '0644'
-        owner: root
-        group: root
-      with_items: "{{ custom_installations }}"
-      tags: logs
 
 - name: create databases
   hosts: drupal7

@@ -1,0 +1,54 @@
+---
+- name: Create Main Log Folder
+  file:
+    path: "{{ log_path }}"
+    state: directory
+    owner: www-data
+    recurse: true
+    mode: '0775'
+
+- name: Create Log Folders For Sites
+  file: 
+    path: "{{ log_path }}/{{ item.fqdn }}"
+    owner: "{{item.user}}"
+    group: www-data
+    mode: '0775'
+    state: directory
+    recurse: true
+  with_items: "{{ websites }}"
+  when: item.create_log is defined
+
+  # Since the log files are written by nginx, the owner has to be set to www-data.
+  # Otherwise, nginx will set the owner to www-data by itself and removing read access
+  # for the specified user
+- name: Create Log File For Sites
+  file: 
+    path: "{{ log_path }}/{{ item.fqdn }}/error_log.log"
+    owner: www-data
+    group: "{{item.user}}"
+    mode: '0640'
+    state: touch
+  with_items: "{{ websites }}"
+  when: item.create_log is defined
+  notify: reload nginx
+
+- name: Create link to log folder in web root
+  file:
+    follow: no
+    src: "{{ log_path }}/{{ item.fqdn }}"
+    dest: "{{ item.web_root }}/error_logs"
+    owner: "{{item.user}}"
+    group: "{{item.user}}"
+    state: link
+  with_items: "{{ websites }}"
+  when: item.create_log is defined
+
+- name: Setup Logrotate
+  template: 
+    src: logrotate.j2
+    dest: "/etc/logrotate.d/{{item.fqdn}}"
+    mode: '0644'
+    owner: root
+    group: root
+  with_items: "{{ websites }}"
+  when: item.create_log is defined
