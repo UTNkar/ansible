@@ -1,6 +1,6 @@
 ---
 drupal7_installations:
-  - fqdn: "www.utn.se"
+  - fqdn: "old.utn.se"
     web_root: "/var/www/www.utn.se"
     user: "root"
     database: "www"
