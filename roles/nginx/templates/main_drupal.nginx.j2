@@ -14,14 +14,11 @@ server {
 
 server {
   # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
-  ssl_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/{{ item.fqdn }}/privkey.pem;
-  ssl_session_timeout 1d;
-  ssl_session_cache shared:SSL:50m;
-  ssl_session_tickets off;
+  ssl_certificate /etc/ssl/certs/utn.se.pem;
+  ssl_certificate_key /etc/ssl/private/utn.se.key;
 
-  # Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
-  ssl_dhparam /etc/ssl/certs/dhparam.pem;
+  ssl_client_certificate /etc/ssl/certs/origin-pull-ca.pem;
+  ssl_verify_client on;
 
   # modern configuration. tweak to your needs.
   ssl_protocols TLSv1.2;
@@ -32,9 +29,6 @@ server {
   # fetch OCSP records from URL in ssl_certificate and cache them
   ssl_stapling on;
   ssl_stapling_verify on;
-
-  ## verify chain of trust of OCSP response using Root CA and Intermediate certs
-  ssl_trusted_certificate /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem;
 
   # Prevent accessing PHP-files in upload-directory
   location ~* /sites/default/.*\.php$ {
