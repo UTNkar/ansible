@@ -1,7 +1,7 @@
 ---
 drupal7_installations:
   - fqdn: "old.utn.se"
-    web_root: "/var/www/www.utn.se"
+    web_root: "/var/www/old.utn.se"
     user: "root"
     database: "www"
     password: "{{ vault_www_password }}"
