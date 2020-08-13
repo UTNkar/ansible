@@ -16,7 +16,7 @@ users:
   # Committees
   - name: "forsranningen"
     groups: ""
-    home: "/var/www/forsranningen.utn.se"
+    home: "/var/www/old-forsranningen.utn.se"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/forsranningen.pub') }}"
     hosts:
@@ -44,7 +44,7 @@ users:
     - "babbage.utn.se"
   - name: "utnarm"
     groups: ""
-    home: "/var/www/old.utnarm.utn.se"
+    home: "/var/www/old-utnarm.utn.se"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/utnarm.pub') }}"
     hosts:
