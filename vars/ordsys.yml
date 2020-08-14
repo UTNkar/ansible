@@ -1,9 +1,0 @@
----
-node_applications:
-  - fqdn: "ordsys.utn.se"
-    web_root: "/var/www/ordsys.utn.se"
-    user: "dfehrm"
-    template: "node"
-    git_repo: "git@github.com:UTNkar/ordsys.git"
-    port: 3000
-
