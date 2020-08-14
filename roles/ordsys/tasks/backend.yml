@@ -7,3 +7,4 @@
     virtualenv: "{{ project_folder }}/venv"
     process_user: "{{ user }}"
     pythonpath: "{{ project_folder }}"
+    use_socket: no

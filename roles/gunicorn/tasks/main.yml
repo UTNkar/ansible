@@ -21,6 +21,7 @@
     src: templates/systemd/gunicorn.socket.j2
     dest: "/etc/systemd/system/{{process_name}}.socket"
     mode: "600"
+  when: use_socket
   notify:
     - restart socket
     - restart gunicorn
@@ -29,6 +30,7 @@
   template:
     src: templates/systemd/tmpfiles.gunicorn.conf.j2
     dest: "/etc/tmpfiles.d/{{process_name}}.conf"
+  when: use_socket
   notify:
     - restart socket
     - restart gunicorn
