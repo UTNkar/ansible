@@ -1,10 +1,41 @@
 ---
-
 - name: create system user
   user:
     name: "{{ user }}"
     shell: /usr/sbin/nologin
     system: yes
 
+- name: Install dependencies
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - git
+      - curl
+
+- name: Ensures public dirs exists
+  file:
+    path: "{{ project_folder }}"
+    state: directory
+    recurse: true
+    owner: "{{ user }}"
+    group: www-data
+
+- name: Clone git repo
+  git:
+    repo: "{{ git_repo }}"
+    dest: "{{ project_folder }}"
+  notify:
+    - perform reload
+
 - name: Run backend tasks
   include: backend.yml
+
+- name: Fix permissions
+  file:
+    path: "{{ project_folder }}"
+    owner: "{{ user }}"
+    group: www-data
+    state: directory
+    recurse: true
+    mode: "u=rwX,g=rX,o=rX"
