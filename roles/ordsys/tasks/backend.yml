@@ -1,0 +1,2 @@
+- name: Setup Database
+  include: "../../django/tasks/postgres.yml"

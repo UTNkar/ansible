@@ -1,13 +1,13 @@
 ---
-- name: reload service
-  listen: perform reload 
-  service: 
-    name: "{{item.fqdn}}"
-    state: restarted
-  with_items: 
-    - "{{ node_applications }}"
+# - name: reload service
+#   listen: perform reload
+#   service:
+#     name: "{{item.fqdn}}"
+#     state: restarted
+#   with_items:
+#     - "{{ node_applications }}"
 
-- name: reload systemd daemon
-  listen: perform reload
-  systemd:
-    daemon_reload: yes
+# - name: reload systemd daemon
+#   listen: perform reload
+#   systemd:
+#     daemon_reload: yes

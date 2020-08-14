@@ -1,61 +1,10 @@
 ---
 
-- name: Install dependencies
-  apt:
-    name: "{{ packages }}"
-  vars:
-    packages:
-      - git
-      - sqlite3
+- name: create system user
+  user:
+    name: "{{ user }}"
+    shell: /usr/sbin/nologin
+    system: yes
 
-- name: Ensures public dirs exists
-  file: path={{ item.web_root }}/public state=directory recurse=true owner={{item.user}} group=www-data
-  with_items: "{{ node_applications }}"
-
-- name: Clone git repo
-  git:
-    repo: "{{ item.git_repo }}"
-    dest: "{{ item.web_root }}/public"
-  with_items: "{{ node_applications }}"
-  tags: git
-  notify:
-    - perform reload
-
-- name: Tell npm to use root as user
-  shell: "npm config set user=0"
-
-- name: Install dependencies
-  npm:
-    path: "{{item.web_root}}/public"
-    production: yes
-  with_items: "{{ node_applications }}"
-  notify: 
-    - perform reload
-
-- name: Fix permissions
-  file: 
-    path: "{{ item.web_root }}/public"
-    owner: "{{ item.user }}"
-    group: www-data
-    state: directory
-    recurse: true
-    mode: "u=rwX,g=rX,o="
-  with_items: "{{ node_applications }}"
-
-- name: Add application as a service
-  template:
-    src: application_service.j2
-    dest: "/etc/systemd/system/{{ item.fqdn }}.service"
-    owner: root
-    group: root
-    mode: '0644'
-  with_items: "{{ node_applications }}"
-  notify:
-    - perform reload
-
-- name: Start all services and make them start on boot
-  systemd:
-    name: "{{ item.fqdn }}"
-    enabled: yes
-    state: started
-  with_items: "{{ node_applications }}"
+- name: Run backend tasks
+  include: backend.yml

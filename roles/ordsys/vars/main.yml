@@ -1,2 +1,10 @@
 ---
-# vars file for node_applications
+user: ordsys
+fqdn: "ordsys.utn.se"
+web_root: "/var/www/ordsys.utn.se"
+git_repo: "git@github.com:UTNkar/ordsys.git"
+port_number: 3000
+node_version: "14.8.0"
+db_name: ordsys
+db_user: ordsys
+db_password: "{{ vault_ordsys_db_password }}"
