@@ -1,9 +1,9 @@
 ---
-- name: Install node applications
+- name: Install ordsys
   hosts: application
   become: yes
   become_flags: -HE
   vars_files:
-    - vars/node_applications.yml
+    - vars/passwords.yml
   roles:
-    - role: node_applications
+    - role: ordsys
