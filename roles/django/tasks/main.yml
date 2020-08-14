@@ -3,6 +3,10 @@
   include: setup.yml
   tags: setup
 
+- name: Include postgres tasks
+  include: postgres.yml
+  tags: postgres
+
 - name: Include deploy tasks
   include: deploy.yml
   tags: deploy
