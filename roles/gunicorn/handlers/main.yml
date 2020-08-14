@@ -1,0 +1,11 @@
+- name: restart socket
+  systemd:
+    name: "{{process_name}}.socket"
+    state: stopped
+    daemon_reload: yes
+
+- name: restart gunicorn
+  systemd:
+    name: "{{process_name}}.service"
+    state: restarted
+    daemon_reload: yes
