@@ -7,6 +7,18 @@
   include: postgres.yml
   tags: postgres
 
+- name: Clone/pull project repo
+  git:
+    repo: "{{ project_repo }}"
+    dest: "{{ install_root }}/{{ project_name }}"
+    accept_hostkey: yes
+    version: master
+  notify:
+    - restart socket
+    - restart gunicorn
+    - fix permissions
+    - fix permission on private key
+
 - name: Include deploy tasks
   include: deploy.yml
   tags: deploy
