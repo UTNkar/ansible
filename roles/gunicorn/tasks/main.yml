@@ -14,7 +14,7 @@
     working_dir: "{{ pythonpath }}"
   notify:
     - restart socket
-    - restart gunicorn
+    - restart service
 
 - name: copy gunicorn socket config
   template:
@@ -24,7 +24,7 @@
   when: use_socket
   notify:
     - restart socket
-    - restart gunicorn
+    - restart service
 
 - name: copy gunicorn tmpfiles config
   template:
@@ -33,7 +33,7 @@
   when: use_socket
   notify:
     - restart socket
-    - restart gunicorn
+    - restart service
 
 - name: make sure gunicorn server is running
   service:

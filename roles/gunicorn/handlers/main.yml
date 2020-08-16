@@ -3,8 +3,9 @@
     name: "{{process_name}}.socket"
     state: stopped
     daemon_reload: yes
+  when: use_socket
 
-- name: restart gunicorn
+- name: restart service
   systemd:
     name: "{{process_name}}.service"
     state: restarted

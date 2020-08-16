@@ -8,7 +8,7 @@
   when: project_name == 'admininterface'
   notify:
     - restart socket
-    - restart gunicorn
+    - restart service
     - fix permissions
     - fix permission on private key
 
@@ -26,7 +26,7 @@
     virtualenv_command: "pyvenv"
   notify:
     - restart socket
-    - restart gunicorn
+    - restart service
     - fix permissions
     - fix permission on private key
   become_user: "{{process_user}}"
