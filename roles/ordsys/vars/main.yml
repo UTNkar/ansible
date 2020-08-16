@@ -13,9 +13,11 @@ db_password: "{{ vault_ordsys_db_password }}"
 django_secret_key: "{{ vault_ordsys_secret_key }}"
 django_settings: ordsys.settings.production
 
+process_name: "ordsys"
+wsgi_module: ordsys.wsgi
+
 environment_variables:
   SECRET_KEY: "{{ django_secret_key }}"
   DB_PASSWORD: "{{ db_password }}"
-  DJANGO_SETTINGS_MODULE: "{{ django_settings }}"
-  DJANGO_SECRET: "{{ django_secret_key }}"
   SENTRY_DSN: "{{ vault_ordsys_sentry_dsn }}"
+  DJANGO_SETTINGS_MODULE: "{{ django_settings }}"
