@@ -13,3 +13,4 @@
     name: nginx
   vars:
     websites: "{{ website }}"
+  when: run_nginx
