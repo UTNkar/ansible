@@ -7,8 +7,8 @@
 
 - name: copy gunicorn service config
   template:
-    src: templates/systemd/gunicorn.service.j2
-    dest: "/etc/systemd/system/{{process_name}}.service"
+    src: templates/gunicorn.service.j2
+    dest: "/etc/system/{{process_name}}.service"
     mode: "600"
   vars:
     working_dir: "{{ pythonpath }}"
@@ -18,8 +18,8 @@
 
 - name: copy gunicorn socket config
   template:
-    src: templates/systemd/gunicorn.socket.j2
-    dest: "/etc/systemd/system/{{process_name}}.socket"
+    src: templates/gunicorn.socket.j2
+    dest: "/etc/system/{{process_name}}.socket"
     mode: "600"
   when: use_socket
   notify:
@@ -28,7 +28,7 @@
 
 - name: copy gunicorn tmpfiles config
   template:
-    src: templates/systemd/tmpfiles.gunicorn.conf.j2
+    src: templates/tmpfiles.gunicorn.conf.j2
     dest: "/etc/tmpfiles.d/{{process_name}}.conf"
   when: use_socket
   notify:
