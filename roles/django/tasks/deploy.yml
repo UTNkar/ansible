@@ -10,6 +10,14 @@
     - fix permissions
     - fix permission on private key
 
+- name: fix permissions after cloning
+  file:
+    path: "{{ install_root }}/{{ project_name }}"
+    state: directory
+    owner: "{{ process_user }}"
+    group: "{{ process_group }}"
+    recurse: yes
+
 - name: Copy firebase private key
   copy:
     src: "files/admininterface-privatekey.json"
@@ -53,14 +61,6 @@
     app_path: "{{ pythonpath }}"
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
-
-- name: fix permissions
-  file:
-    path: "{{ install_root }}/{{ project_name }}"
-    state: directory
-    owner: "{{ process_user }}"
-    group: "{{ process_group }}"
-    recurse: yes
 
 - name: django collectstatic
   django_manage:
