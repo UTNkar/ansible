@@ -12,9 +12,16 @@ db_user: ordsys
 db_password: "{{ vault_ordsys_db_password }}"
 django_secret_key: "{{ vault_ordsys_secret_key }}"
 django_settings: ordsys.settings.production
-
+pythonpath: "{{ project_folder }}/ordsys"
 process_name: "ordsys"
 wsgi_module: ordsys.wsgi
+
+website:
+  - fqdn: "{{ fqdn }}"
+    template: "ordsys"
+    static_root: "{{ static_root }}"
+    media_root: "{{ media_root }}"
+    process_name: "{{ process_name }}"
 
 environment_variables:
   SECRET_KEY: "{{ django_secret_key }}"
