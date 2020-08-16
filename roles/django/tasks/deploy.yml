@@ -1,3 +1,15 @@
+- name: Clone/pull project repo
+  git:
+    repo: "{{ project_repo }}"
+    dest: "{{ install_root }}/{{ project_name }}"
+    accept_hostkey: yes
+    version: master
+  notify:
+    - restart socket
+    - restart service
+    - fix permissions
+    - fix permission on private key
+
 - name: Copy firebase private key
   copy:
     src: "files/admininterface-privatekey.json"
