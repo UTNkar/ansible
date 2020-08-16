@@ -5,7 +5,7 @@ fqdn: "ordsys.utn.se"
 install_root: /var/www
 project_name: ordsys
 project_folder: "{{ install_root }}/{{ project_name }}"
-git_repo: "git@github.com:chwallen/ordsys.git"
+project_repo: "git@github.com:chwallen/ordsys.git"
 node_version: "14.8.0"
 db_name: ordsys
 db_user: ordsys
