@@ -38,6 +38,7 @@
     state: latest
     virtualenv: "{{ virtualenv }}"
     virtualenv_command: "pyvenv"
+  become_user: "{{process_user}}"
 
 - name: install python packages
   pip:
@@ -50,6 +51,16 @@
     - fix permissions
     - fix permission on private key
   become_user: "{{process_user}}"
+
+- name: django makemigrations
+  become_user: "{{process_user}}"
+  environment: "{{ environment_variables }}"
+  django_manage:
+    command: makemigrations
+    app_path: "{{ pythonpath }}"
+    virtualenv: "{{ virtualenv }}"
+    settings: "{{ django_settings }}"
+  when: project_name == 'ordsys'
 
 - name: django migrate
   become_user: "{{process_user}}"
@@ -79,6 +90,7 @@
     settings: "{{ django_settings }}"
   become_user: "{{process_user}}"
   environment: "{{ environment_variables }}"
+  when: project_name != 'ordsys'
 
 - name: install gunicorn
   pip:
