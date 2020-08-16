@@ -13,9 +13,6 @@
     repo: "{{ git_repo }}"
     dest: "{{ project_folder }}"
 
-- name: Run backend tasks
-  include: backend.yml
-
 - name: Run frontend tasks
   include: frontend.yml
 
