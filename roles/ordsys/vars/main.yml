@@ -5,16 +5,25 @@ fqdn: "ordsys.utn.se"
 install_root: /var/www
 project_name: ordsys
 project_folder: "{{ install_root }}/{{ project_name }}"
+
 project_repo: "git@github.com:chwallen/ordsys.git"
 node_version: "14.8.0"
+
 db_name: ordsys
 db_user: ordsys
 db_password: "{{ vault_ordsys_db_password }}"
+
 django_secret_key: "{{ vault_ordsys_secret_key }}"
 django_settings: ordsys.settings.production
-pythonpath: "{{ project_folder }}/ordsys"
+pythonpath: "{{ project_folder }}"
+
+static_root: "{{ pythonpath }}/static/"
+media_root: "{{ pythonpath }}/media/"
+
 process_name: "ordsys"
 wsgi_module: ordsys.wsgi
+
+npm_path: "/home/{{ user }}/.nvm/versions/node/v{{ node_version }}/bin/npm"
 
 website:
   - fqdn: "{{ fqdn }}"

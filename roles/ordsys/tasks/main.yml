@@ -28,6 +28,6 @@
   vars:
     websites:
       - fqdn: "{{ fqdn }}"
-        web_root: "{{ web_root }}"
+        web_root: "{{ project_folder }}"
         user: "{{ user }}"
         template: "ordsys"
