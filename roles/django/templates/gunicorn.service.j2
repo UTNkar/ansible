@@ -18,7 +18,7 @@ ExecStart={{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
           --bind unix:/run/{{process_name}}/socket {{wsgi_module}}
 {% else %}
 ExecStart={{ virtualenv }}/bin/gunicorn \
-          --bind http://localhost:8000 {{wsgi_module}}
+          --bind localhost:8000 {{wsgi_module}}
 {% endif %}
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
