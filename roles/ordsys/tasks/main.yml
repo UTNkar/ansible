@@ -29,8 +29,6 @@
   git:
     repo: "{{ git_repo }}"
     dest: "{{ project_folder }}"
-  notify:
-    - perform reload
 
 - name: Run backend tasks
   include: backend.yml

@@ -15,8 +15,6 @@
   npm:
     path: "{{ web_root }}"
     production: yes
-  notify:
-    - perform reload
   become: yes
   become_user: "{{ user }}"
   notify:
