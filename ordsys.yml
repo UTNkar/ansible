@@ -1,6 +1,6 @@
 ---
 - name: Install ordsys
-  hosts: application
+  hosts: django
   become: yes
   become_flags: -HE
   vars_files:
