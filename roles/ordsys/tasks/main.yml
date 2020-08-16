@@ -35,6 +35,19 @@
 - name: Run backend tasks
   include: backend.yml
 
+- name: Run frontend tasks
+  include: frontend.yml
+
+- name: Setup nginx
+  include_role:
+    name: nginx
+  vars:
+    websites:
+      - fqdn: "{{ fqdn }}"
+        web_root: "{{ web_root }}"
+        user: "{{ user }}"
+        template: "ordsys"
+
 - name: Fix permissions
   file:
     path: "{{ project_folder }}"
