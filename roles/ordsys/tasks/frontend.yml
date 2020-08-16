@@ -19,25 +19,27 @@
     - perform reload
   become: yes
   become_user: "{{ user }}"
+  notify:
+    - restart ordsys frontend
 
 - name: Create production build
   shell: npm run build
   become: yes
   become_user: "{{ user }}"
+  notify:
+    - restart ordsys frontend
 
 - name: Install serve
   npm:
     name: serve
     path: "{{ web_root }}"
+  notify:
+    - restart ordsys frontend
 
 - name: copy ordsys service config
   template:
     src: templates/service.j2
     dest: "/etc/systemd/system/{{process_name}}.service"
     mode: "600"
-
-- name: restart ordsys service
-  systemd:
-    name: "{{process_name}}.service"
-    state: restarted
-    daemon_reload: yes
+  notify:
+    - restart ordsys frontend

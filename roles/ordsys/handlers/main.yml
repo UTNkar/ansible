@@ -1,13 +1,6 @@
 ---
-# - name: reload service
-#   listen: perform reload
-#   service:
-#     name: "{{item.fqdn}}"
-#     state: restarted
-#   with_items:
-#     - "{{ node_applications }}"
-
-# - name: reload systemd daemon
-#   listen: perform reload
-#   systemd:
-#     daemon_reload: yes
+- name: restart ordsys frontend
+  systemd:
+    name: "{{process_name}}.service"
+    state: restarted
+    daemon_reload: yes
