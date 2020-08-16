@@ -1,0 +1,15 @@
+[Unit]
+Description={{ project_name }}
+
+[Service]
+ExecStart=serve -s build
+WorkingDirectory= {{ web_root }}/frontend/
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier={{ fqdn }}
+User={{ user }}
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
