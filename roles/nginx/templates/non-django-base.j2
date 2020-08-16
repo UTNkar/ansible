@@ -1,5 +1,9 @@
 {% extends "base.j2" %}
 {% block content %}
+{% if item.web_root is defined %}
+  root {{ item.web_root }}/public;
+{% endif %}
+
   location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
     expires max;
     log_not_found off;

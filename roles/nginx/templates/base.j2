@@ -9,9 +9,6 @@ server {
   listen 443 ssl http2;
   listen [::]:443 ssl http2;
   server_name {{ item.fqdn }};
-{% if item.web_root is defined %}
-  root {{ item.web_root }}/public;
-{% endif %}
 
   # certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
   ssl_certificate /etc/ssl/certs/utn.se.pem;
