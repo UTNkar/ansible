@@ -1,5 +1,0 @@
-# dependencies:
-#   - role: nginx
-#     tags: nginx
-#     vars:
-#       websites: "{{ node_applications }}"
