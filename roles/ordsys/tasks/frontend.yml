@@ -2,42 +2,64 @@
   shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+    creates: "/home/{{ user }}/.nvm/nvm.sh"
+    warn: no
   become: yes
   become_user: "{{ user }}"
+  tags: npm
 
 - name: Install node
-  shell: nvm install {{ node_version }}
+  shell: >
+    /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && nvm install {{ node_version }}"
+  args:
+    creates: "/home/{{ user }}/.nvm/alias"
+    chdir: "{{ project_folder }}/frontend"
   become: yes
   become_user: "{{ user }}"
+  tags: npm
 
 - name: Install dependencies
-  npm:
-    path: "{{ web_root }}"
-    production: yes
+  shell: >
+    /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && npm install --production"
+  args:
+    chdir: "{{ project_folder }}/frontend"
   become: yes
   become_user: "{{ user }}"
+  tags: npm
+  ignore_errors: yes
   notify:
     - restart ordsys frontend
 
 - name: Create production build
-  shell: npm run build
+  shell: >
+    /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && npm run build"
+  args:
+    chdir: "{{ project_folder }}/frontend"
   become: yes
   become_user: "{{ user }}"
+  tags: npm
   notify:
     - restart ordsys frontend
 
 - name: Install serve
-  npm:
-    name: serve
-    path: "{{ web_root }}"
+  shell: >
+    /bin/bash -c "source /home/{{ user }}/.nvm/nvm.sh && npm install -g serve"
+  args:
+    chdir: "{{ project_folder }}/frontend"
+  ignore_errors: yes
   notify:
     - restart ordsys frontend
 
 - name: copy frontend service config
   template:
     src: templates/frontend_service.j2
-    dest: "/etc/systemd/system/{{process_name}}.service"
+    dest: "/etc/systemd/system/{{process_name}}-frontend.service"
     mode: "600"
   notify:
     - restart ordsys frontend
+
+- name: Start frontend
+  service:
+    name: "{{process_name}}.service"
+    state: started
+    enabled: yes
