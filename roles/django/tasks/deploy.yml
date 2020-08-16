@@ -53,9 +53,7 @@
 
 - name: django migrate
   become_user: "{{process_user}}"
-  environment:
-    DJANGO_SECRET: "{{ django_secret_key }}"
-    DJANGO_DB_PASS: "{{ db_password }}"
+  environment: "{{ environment_variables }}"
   django_manage:
     command: migrate
     app_path: "{{ pythonpath }}"
@@ -68,6 +66,7 @@
     app_path: "{{ pythonpath }}"
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
+  environment: "{{ environment_variables }}"
   notify:
     - fix permissions
   become_user: "{{process_user}}"
@@ -79,8 +78,7 @@
     virtualenv: "{{ virtualenv }}"
     settings: "{{ django_settings }}"
   become_user: "{{process_user}}"
-  environment:
-    SENTRY_DSN: "{{ environment_variables.SENTRY_DSN }}"
+  environment: "{{ environment_variables }}"
 
 - name: install gunicorn
   pip:
