@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "django-base.j2" %}
+{% block django_content %}
   location /admin {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     # enable this if and only if you use HTTPS
