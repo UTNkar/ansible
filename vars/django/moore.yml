@@ -28,8 +28,6 @@ melos_url: "{{ vault_melos_url }}"
 melos_org_id: "{{ vault_melos_org_id }}"
 melos_password: "{{ vault_melos_password }}"
 
-facebook_app_id: "{{ vault_facebook_app_id }}"
-instagram_access_token: "{{ vault_instagram_access_token }}"
 google_api_key: "{{ vault_google_api_key }}"
 
 website:
@@ -48,6 +46,4 @@ environment_variables:
   MELOS_ADMIN: "{{ melos_password }}"
   MELOS_URL: "{{ melos_url }}"
   MELOS_ORG_ID: "{{ melos_org_id }}"
-  FACEBOOK_APP_ID: "{{ facebook_app_id }}"
-  INSTAGRAM_ACCESS_TOKEN: "{{ instagram_access_token }}"
   GOOGLE_API_KEY: "{{ google_api_key }}"
