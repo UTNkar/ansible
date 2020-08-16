@@ -36,6 +36,15 @@
 - name: Run frontend tasks
   include: frontend.yml
 
+- name: Fix permissions
+  file:
+    path: "{{ project_folder }}"
+    owner: "{{ user }}"
+    group: www-data
+    state: directory
+    recurse: true
+    mode: "u=rwX,g=rX,o=rX"
+
 - name: Setup nginx
   include_role:
     name: nginx
@@ -45,12 +54,3 @@
         web_root: "{{ web_root }}"
         user: "{{ user }}"
         template: "ordsys"
-
-- name: Fix permissions
-  file:
-    path: "{{ project_folder }}"
-    owner: "{{ user }}"
-    group: www-data
-    state: directory
-    recurse: true
-    mode: "u=rwX,g=rX,o=rX"
