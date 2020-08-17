@@ -1,0 +1,17 @@
+- name: install daphne
+  pip:
+    name: daphne
+    virtualenv: "{{ virtualenv }}"
+    virtualenv_command: "pyvenv"
+  become_user: "{{ process_user }}"
+
+- name: copy daphne service config
+  template:
+    src: templates/daphne.service.j2
+    dest: "/etc/systemd/system/{{process_name}}.service"
+    mode: "600"
+  vars:
+    working_dir: "{{ pythonpath }}"
+  notify:
+    - restart socket
+    - restart service

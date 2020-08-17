@@ -1,24 +1,5 @@
-[Unit]
-Description={{process_name}} daemon
-Requires={{process_name}}.socket{}
-After=network.target
-
-[Service]
-PIDFile=/run/{{process_name}}/pid
-User={{process_user}}
-Group={{process_group}}
-RuntimeDirectory={{process_name}}
-WorkingDirectory={{working_dir}}
-ExecStart={{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
+{% extends "service-base.j2"%}
+{% block exec_start %}
+{{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
           --bind unix:/run/{{process_name}}/socket {{wsgi_module}}
-
-ExecReload=/bin/kill -s HUP $MAINPID
-ExecStop=/bin/kill -s TERM $MAINPID
-PrivateTmp=true
-
-{% for variable in environment_variables %}
-Environment="{{ variable }}={{ environment_variables[variable] }}"
-{% endfor %}
-
-[Install]
-WantedBy=multi-user.target
+{% endblock %}
