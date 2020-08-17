@@ -109,7 +109,7 @@
     - restart socket
     - restart service
 
-- name: copy gunicorn tmpfiles config
+- name: copy tmpfiles config
   template:
     src: templates/tmpfiles.conf.j2
     dest: "/etc/tmpfiles.d/{{process_name}}.conf"
@@ -117,7 +117,7 @@
     - restart socket
     - restart service
 
-- name: make sure gunicorn server is running
+- name: make sure server is running
   service:
     name: "{{process_name}}"
     state: started
