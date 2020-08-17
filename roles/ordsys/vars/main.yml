@@ -17,11 +17,11 @@ django_secret_key: "{{ vault_ordsys_secret_key }}"
 django_settings: ordsys.settings.production
 pythonpath: "{{ project_folder }}"
 
-static_root: "{{ pythonpath }}/static/"
-media_root: "{{ pythonpath }}/media/"
+static_root: "{{ pythonpath }}/ordsys/static/"
+media_root: "{{ pythonpath }}/ordsys/media/"
 
 process_name: "ordsys"
-wsgi_module: ordsys.wsgi
+asgi_module: ordsys.asgi:application
 
 npm_path: "/home/{{ user }}/.nvm/versions/node/v{{ node_version }}/bin/npm"
 
