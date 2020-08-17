@@ -1,5 +1,13 @@
-{% extends "django-base.j2" %}
-{% block django_content %}
+{% extends "base.j2" %}
+{% block content %}
+  location /static/ {
+    alias {{ static_root }};
+  }
+
+  location /media/ {
+    alias {{ media_root }};
+  }
+
   location / {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     # enable this if and only if you use HTTPS
