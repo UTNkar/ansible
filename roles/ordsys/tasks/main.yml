@@ -5,7 +5,6 @@
   vars:
     virtualenv: "{{ project_folder }}/venv"
     process_user: "{{ user }}"
-    use_socket: no
     run_nginx: no
   tags: backend
 

@@ -1,3 +1,2 @@
-use_socket: yes
 run_nginx: yes
 process_group: "www-data"

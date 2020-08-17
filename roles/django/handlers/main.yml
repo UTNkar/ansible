@@ -17,7 +17,6 @@
     name: "{{process_name}}.socket"
     state: stopped
     daemon_reload: yes
-  when: use_socket
 
 - name: restart service
   systemd:

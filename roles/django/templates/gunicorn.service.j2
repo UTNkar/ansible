@@ -1,25 +1,17 @@
 [Unit]
 Description={{process_name}} daemon
-{% if use_socket %}
 Requires={{process_name}}.socket{}
-{% endif %}
 After=network.target
 
 [Service]
-{% if use_socket %}
 PIDFile=/run/{{process_name}}/pid
-{% endif %}
 User={{process_user}}
 Group={{process_group}}
 RuntimeDirectory={{process_name}}
 WorkingDirectory={{working_dir}}
-{% if use_socket %}
 ExecStart={{ virtualenv }}/bin/gunicorn --pid /run/{{process_name}}/pid   \
           --bind unix:/run/{{process_name}}/socket {{wsgi_module}}
-{% else %}
-ExecStart={{ virtualenv }}/bin/gunicorn \
-          --bind localhost:8000 {{wsgi_module}}
-{% endif %}
+
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
