@@ -7,37 +7,6 @@
   include: deploy.yml
   tags: deploy
 
-- name: Include gunicorn tasks
-  include: gunicorn.yml
-  when: use_gunicorn
-
-- name: Include daphne tasks
-  include: daphne.yml
-  when: use_daphne
-
-- name: copy socket config
-  template:
-    src: templates/socket.j2
-    dest: "/etc/systemd/system/{{process_name}}.socket"
-    mode: "600"
-  notify:
-    - restart socket
-    - restart service
-
-- name: copy gunicorn tmpfiles config
-  template:
-    src: templates/tmpfiles.conf.j2
-    dest: "/etc/tmpfiles.d/{{process_name}}.conf"
-  notify:
-    - restart socket
-    - restart service
-
-- name: make sure gunicorn server is running
-  service:
-    name: "{{process_name}}"
-    state: started
-    enabled: yes
-
 - name: Include nginx tasks
   tags: nginx
   import_role:
