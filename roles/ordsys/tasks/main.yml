@@ -7,6 +7,7 @@
     process_user: "{{ user }}"
     run_nginx: no
     use_daphne: yes
+    use_gunicorn: no
   tags: backend
 
 - name: Run frontend tasks
