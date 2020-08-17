@@ -1,4 +1,38 @@
 ---
+- name: Create frontend build
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Clone/pull project repo
+      git:
+        repo: "{{ project_repo }}"
+        dest: "~/ordsys"
+        accept_hostkey: yes
+        version: master
+
+    - name: Install node
+      shell: >
+        nvm install {{ node_version }}"
+      args:
+        creates: "~/.nvm/alias"
+        chdir: "~/ordsys/frontend"
+
+    - name: Install dependencies
+      shell: >
+        nvm exec {{ node_version }} npm install --production"
+      args:
+        chdir: "~/ordsys/frontend"
+      ignore_errors: yes
+
+    - name: Create production build
+      shell: >
+        nvm exec {{ node_version }} npm run build"
+      args:
+        chdir: "~/ordsys/frontend"
+    vars_files:
+      - roles/ordsys/vars/main.yml
+
+
 - name: Install ordsys
   hosts: django
   become: yes
