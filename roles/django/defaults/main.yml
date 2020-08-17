@@ -1,2 +1,4 @@
 run_nginx: yes
 process_group: "www-data"
+use_gunicorn: yes
+use_daphne: no

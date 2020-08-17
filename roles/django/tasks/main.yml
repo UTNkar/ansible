@@ -7,6 +7,14 @@
   include: deploy.yml
   tags: deploy
 
+- name: Include gunicorn tasks
+  include: gunicorn.yml
+  when: use_gunicorn
+
+- name: Include daphne tasks
+  include: daphne.yml
+  when: use_daphne
+
 - name: Include nginx tasks
   tags: nginx
   import_role:

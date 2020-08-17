@@ -6,6 +6,7 @@
     virtualenv: "{{ project_folder }}/venv"
     process_user: "{{ user }}"
     run_nginx: no
+    use_daphne: yes
   tags: backend
 
 - name: Run frontend tasks
