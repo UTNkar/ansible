@@ -8,38 +8,38 @@
 # rm -rf ~/build
 # sudo nginx -s reload
 
-- name: Create frontend build
-  hosts: 127.0.0.1
-  connection: local
-  tags: build
-  vars_files:
-    - roles/ordsys/vars/main.yml
-  tasks:
-    - name: Clone/pull project repo
-      git:
-        repo: "{{ project_repo }}"
-        dest: "~/ordsys"
-        accept_hostkey: yes
-        version: fix/production-fixes
+# - name: Create frontend build
+#   hosts: 127.0.0.1
+#   connection: local
+#   tags: build
+#   vars_files:
+#     - roles/ordsys/vars/main.yml
+#   tasks:
+#     - name: Clone/pull project repo
+#       git:
+#         repo: "{{ project_repo }}"
+#         dest: "~/ordsys"
+#         accept_hostkey: yes
+#         version: fix/production-fixes
 
-    - name: Install node
-      shell: >
-        . ~/.nvm/nvm.sh && nvm install {{ node_version }}
-      args:
-        chdir: "~/ordsys/frontend"
+#     - name: Install node
+#       shell: >
+#         . ~/.nvm/nvm.sh && nvm install {{ node_version }}
+#       args:
+#         chdir: "~/ordsys/frontend"
 
-    - name: Install dependencies
-      shell: >
-        . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm install --production
-      args:
-        chdir: "~/ordsys/frontend"
-      ignore_errors: yes
+#     - name: Install dependencies
+#       shell: >
+#         . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm install --production
+#       args:
+#         chdir: "~/ordsys/frontend"
+#       ignore_errors: yes
 
-    - name: Create production build
-      shell: >
-        . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm run build
-      args:
-        chdir: "~/ordsys/frontend"
+#     - name: Create production build
+#       shell: >
+#         . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm run build
+#       args:
+#         chdir: "~/ordsys/frontend"
 
 
 - name: Install ordsys
