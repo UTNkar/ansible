@@ -9,7 +9,6 @@
   template:
     src: templates/gunicorn.service.j2
     dest: "/etc/systemd/system/{{process_name}}.service"
-    mode: "600"
   vars:
     working_dir: "{{ pythonpath }}"
   notify:

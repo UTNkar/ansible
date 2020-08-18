@@ -104,7 +104,6 @@
   template:
     src: templates/socket.j2
     dest: "/etc/systemd/system/{{process_name}}.socket"
-    mode: "600"
   notify:
     - restart socket
     - restart service
