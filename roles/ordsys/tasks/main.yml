@@ -10,14 +10,6 @@
     use_gunicorn: no
   tags: backend
 
-- name: Copy frontend build
-  copy:
-    src: ~/ordsys/frontend/build
-    dest: "{{ project_folder }}/frontend"
-    owner: "{{ user }}"
-    group: www-data
-    mode: "u=rwX,g=rX,o=rX"
-
 - name: Fix permissions
   file:
     path: "{{ project_folder }}"

@@ -1,36 +1,45 @@
 ---
+# Npm run build requires more memory than the moore server has so it has to be
+# made locally on your computer. The build folder has to be manually copied
+# rsync -a ~/ordsys/frontend/build/ moore.utn.se:~
+# ssh moore.utn.se
+# rsync -a build/ /var/www/ordsys/frontend/build
+# chown -R ordsys:www-data /var/www/ordsys/frontend/build
+# rm -rf ~/build
+# nginx -s reload
+
 - name: Create frontend build
   hosts: 127.0.0.1
   connection: local
+  tags: build
+  vars_files:
+    - roles/ordsys/vars/main.yml
   tasks:
     - name: Clone/pull project repo
       git:
         repo: "{{ project_repo }}"
         dest: "~/ordsys"
         accept_hostkey: yes
-        version: master
+        version: fix/production-fixes
 
     - name: Install node
       shell: >
-        nvm install {{ node_version }}"
+        . ~/.nvm/nvm.sh && nvm install {{ node_version }}
       args:
-        creates: "~/.nvm/alias"
         chdir: "~/ordsys/frontend"
 
     - name: Install dependencies
       shell: >
-        nvm exec {{ node_version }} npm install --production"
+        . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm install --production
       args:
         chdir: "~/ordsys/frontend"
       ignore_errors: yes
 
     - name: Create production build
       shell: >
-        nvm exec {{ node_version }} npm run build"
+        . ~/.nvm/nvm.sh && nvm exec {{ node_version }} npm run build
       args:
         chdir: "~/ordsys/frontend"
-    vars_files:
-      - roles/ordsys/vars/main.yml
 
 
 - name: Install ordsys
