@@ -1,12 +1,12 @@
 ---
 # Npm run build requires more memory than the moore server has so it has to be
 # made locally on your computer. The build folder has to be manually copied
-# rsync -a ~/ordsys/frontend/build/ moore.utn.se:~
+# rsync -a ~/ordsys/frontend/build/ moore.utn.se:~/build/
 # ssh moore.utn.se
-# rsync -a build/ /var/www/ordsys/frontend/build
-# chown -R ordsys:www-data /var/www/ordsys/frontend/build
+# sudo rsync -a build/ /var/www/ordsys/frontend/build
+# sudo chown -R ordsys:www-data /var/www/ordsys/frontend/build
 # rm -rf ~/build
-# nginx -s reload
+# sudo nginx -s reload
 
 - name: Create frontend build
   hosts: 127.0.0.1
