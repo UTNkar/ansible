@@ -1,5 +1,5 @@
 {% extends "service-base.j2"%}
 {% block exec_start %}
 {{ virtualenv }}/bin/daphne \
-          -u unix:/run/{{process_name}}/socket {{asgi_module}}
+          -u /run/{{process_name}}/socket {{asgi_module}}
 {% endblock %}
