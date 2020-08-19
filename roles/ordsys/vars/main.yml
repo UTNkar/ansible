@@ -1,7 +1,8 @@
 ---
 user: ordsys
 process_group: www-data
-fqdn: "ordsys.utn.se"
+fqdn_frontend: "ordsys.utn.se"
+fqdn_backend: "ordsysbackend.utn.se"
 install_root: /var/www
 project_name: ordsys
 project_folder: "{{ install_root }}/{{ project_name }}"

@@ -1,14 +1,14 @@
 {% extends "base.j2" %}
 {% block content %}
-  location /backend {
-    location /backend/static/ {
-      alias {{ static_root }};
-    }
+  location /static/ {
+    alias {{ static_root }};
+  }
 
-    location /backend/media/ {
-      alias {{ media_root }};
-    }
+  location /media/ {
+    alias {{ media_root }};
+  }
 
+  location / {
     # we don't want nginx trying to do something clever with
     # redirects, we set the Host: header above already.
     proxy_redirect off;
@@ -21,11 +21,5 @@
     proxy_set_header X-Real-IP $remote_addr;
 
     proxy_pass http://unix:/run/ordsys/socket;
-  }
-
-  location / {
-    root {{ project_folder }}/frontend/build;
-    index index.html;
-    try_files $uri $uri/ =404;
   }
 {% endblock %}

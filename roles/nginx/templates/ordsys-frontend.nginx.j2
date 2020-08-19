@@ -1,0 +1,8 @@
+{% extends "base.j2" %}
+{% block content %}
+  location / {
+    root {{ project_folder }}/frontend/build;
+    index index.html;
+    try_files $uri $uri/ =404;
+  }
+{% endblock %}

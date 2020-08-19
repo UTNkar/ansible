@@ -24,7 +24,11 @@
     name: nginx
   vars:
     websites:
-      - fqdn: "{{ fqdn }}"
+      - fqdn: "{{ fqdn_backend }}"
         web_root: "{{ project_folder }}"
         user: "{{ user }}"
-        template: "ordsys"
+        template: "ordsys-backend"
+      - fqdn: "{{ fqdn_frontend }}"
+        web_root: "{{ project_folder }}"
+        user: "{{ user }}"
+        template: "ordsys-frontend"
