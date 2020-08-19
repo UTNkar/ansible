@@ -1,6 +1,8 @@
 [Unit]
 Description={{process_name}} daemon
+{% if use_gunicorn %}
 Requires={{process_name}}.socket
+{% endif %}
 After=network.target
 
 [Service]
