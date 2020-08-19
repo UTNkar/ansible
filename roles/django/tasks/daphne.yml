@@ -12,5 +12,4 @@
   vars:
     working_dir: "{{ pythonpath }}"
   notify:
-    - restart socket
     - restart service

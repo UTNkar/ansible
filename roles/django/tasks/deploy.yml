@@ -100,14 +100,6 @@
   include: daphne.yml
   when: use_daphne
 
-- name: copy socket config
-  template:
-    src: templates/socket.j2
-    dest: "/etc/systemd/system/{{process_name}}.socket"
-  notify:
-    - restart socket
-    - restart service
-
 - name: copy tmpfiles config
   template:
     src: templates/tmpfiles.conf.j2
