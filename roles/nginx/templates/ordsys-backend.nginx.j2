@@ -1,4 +1,12 @@
 {% extends "base.j2" %}
+{% block favicon %}
+  location = /favicon.ico/ {
+    log_not_found off;
+    access_log off;
+    rewrite (.*)/ $1 break; # Remove trailing slash
+    root {{ project_folder }}/frontend/public/assets/icons;
+  }
+{% endblock %}
 {% block content %}
   location /static/ {
     alias {{ static_root }};

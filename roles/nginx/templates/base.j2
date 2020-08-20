@@ -32,10 +32,12 @@ server {
   # Increses the upload limit
   client_max_body_size 100M;
 
+{% block favicon %}
   location = /favicon.ico {
     log_not_found off;
     access_log off;
   }
+{% endblock %}
 
   location = /robots.txt {
     allow all;
