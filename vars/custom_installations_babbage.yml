@@ -27,7 +27,7 @@ custom_installations:
     create_log: yes
   - fqdn: "iupak.utn.se"
     web_root: "/var/www/iupak.utn.se"
-    user: "www-data"
+    user: "iupak"
     template: "wordpress"
     create_log: yes
 

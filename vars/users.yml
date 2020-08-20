@@ -148,6 +148,13 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/e.pub') }}"
     hosts:
       - "babbage.utn.se"
+  - name: "iupak"
+    groups: ""
+    home: "/var/www/iupak.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/iupak.pub') }}"
+    hosts:
+      - "babbage.utn.se"
 
 
 old_users: []
