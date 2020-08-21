@@ -15,7 +15,7 @@ process_group: "www-data"
 pythonpath: "{{ install_root }}/{{ project_name }}/src"
 
 # the dns name or names (comma separated) for your server
-server_name: www.utn.se, apply.utn.se, grus.utn.se, sangbok.utn.se, balen.utn.se, forsranningen.utn.se, www.utnarm.se, dev-rally.utn.se, dv.utn.se
+server_name: www.utn.se, apply.utn.se, grus.utn.se, sangbok.utn.se, balen.utn.se, forsranningen.utn.se, www.utnarm.se, rally.utn.se, dv.utn.se
 
 db_name: moore
 db_user: moore

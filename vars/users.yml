@@ -37,7 +37,7 @@ users:
       - "babbage.utn.se"
   - name: "rally"
     groups: ""
-    home: "/var/www/rally.utn.se"
+    home: "/var/www/old-rally.utn.se"
     shell: "/bin/bash"
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/rally.pub') }}"
     hosts:
