@@ -4,6 +4,7 @@
 
   # First check if uri is a file, if it's not check if it is a folder and look for an index file. If not found show the 404 page
   location / {
+    root {{ item.web_root }}/public;
     index index.php index.html index.htm;
     try_files $uri $uri/ =404;
   }
@@ -12,7 +13,7 @@
   location ~* /flyway\/*.* {
     deny all;
   }
-  
+
   location ~ \.php$ {
     # If a php file is not found, show 404 error
     try_files $uri =404;

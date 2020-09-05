@@ -15,6 +15,7 @@ custom_installations:
     user: "es20"
     template: "php-application"
     create_log: yes
+    certname: "es20.se"
   - fqdn: "pay.utn.se"
     web_root: "/var/www/pay.utn.se"
     user: "dfehrm"
