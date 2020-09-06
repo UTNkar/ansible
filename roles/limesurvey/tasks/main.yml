@@ -1,6 +1,8 @@
 ---
 - name: Install dependencies
-  apt: name={{ item }} state=present
+  apt:
+    name: "{{ item }}"
+    state: present
   with_items:
     - nginx
     - postgresql
@@ -16,27 +18,40 @@
   include: create_db.yml
 
 - name: Download Limesurvey package
-  get_url: url={{ limesurvey.url }} dest=/tmp/{{ limesurvey.package }}
+  get_url:
+    url: "{{ url }}"
+    dest: "/tmp/{{ package }}"
 
 - name: Ensures web_root dir exists
-  file: path={{ limesurvey.web_root }} state=directory group=www-data
+  file:
+    path: "{{ web_root }}"
+    state: directory
+    group: www-data
 
 - name: Extract Limesurvey package
-  unarchive: copy=no src=/tmp/{{ limesurvey.package }} dest={{ limesurvey.web_root }} owner=root group=www-data creates={{ limesurvey.web_root }}/limesurvey
+  unarchive:
+    copy: no
+    src: "/tmp/{{ package }}"
+    dest: "{{ web_root }}"
+    owner: root
+    group: www-data
+    creates: "{{ web_root }}/limesurvey"
 
 - name: Fix permissions
-  file: path={{ limesurvey.web_root }}/{{ item }} owner=www-data recurse=yes
+  file:
+    path: "{{ web_root }}/{{ item }}"
+    owner: www-data
+    recurse: yes
   with_items:
     - limesurvey/tmp
     - limesurvey/upload
     - limesurvey/application/config
 
-- name: Add NGINX configuration
-  template: src=limesurvey_nginx.j2 dest=/etc/nginx/sites-available/{{ limesurvey.fqdn }}
-  notify:
-    - reload nginx
-
-- name: Enable NGINX configuration
-  file: path=/etc/nginx/sites-enabled/{{ limesurvey.fqdn }} src=/etc/nginx/sites-available/{{ limesurvey.fqdn }} state=link
-  notify:
-    - reload nginx
+- name: Setup nginx
+  include_role: nginx
+  tags: nginx
+  vars:
+    websites:
+      - fqdn: "{{ fqdn }}"
+        template: "limesurvey"
+        web_root: "{{ web_root }}"
