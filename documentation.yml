@@ -20,11 +20,11 @@
       user:
         name: hugo
         shell: "/bin/bash"
-     
+
     - name: Get git repository
-      git: 
-        repo: "{{ repo }}" 
-        dest: "{{ web_root }}" 
+      git:
+        repo: "{{ repo }}"
+        dest: "{{ web_root }}"
         accept_hostkey: yes
       become_user: hugo
 
@@ -39,14 +39,15 @@
       become_user: hugo
 
     - name: Fix permissions
-      file: 
+      file:
         path: "{{ web_root }}"
         owner: hugo
         group: www-data
         recurse: yes
   roles:
     - role: nginx
+      tags: nginx
       websites:
         - fqdn: "{{ url }}"
-          web_root: "{{ vars.web_root }}"
+          web_root: "{{ web_root }}"
           template: "html-ssl"

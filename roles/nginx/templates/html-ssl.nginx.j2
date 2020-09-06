@@ -1,5 +1,6 @@
 {% extends "non-django-base.j2" %}
 {% block content %}
+  root {{ item.web_root }}/public;
   index index.html index.htm;
 
   location ~ \..*/.*\.php$ {
