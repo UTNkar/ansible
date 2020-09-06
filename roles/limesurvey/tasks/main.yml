@@ -4,7 +4,6 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - nginx
     - postgresql
     # For PostgreSQL ansible support
     - python-psycopg2
@@ -48,7 +47,8 @@
     - limesurvey/application/config
 
 - name: Setup nginx
-  include_role: nginx
+  import_role:
+    name: nginx
   tags: nginx
   vars:
     websites:
