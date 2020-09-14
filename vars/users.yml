@@ -155,6 +155,12 @@ users:
     ssh_pubkey: "{{ lookup('file', 'files/pubkeys/iupak.pub') }}"
     hosts:
       - "babbage.utn.se"
-
+  - name: "i"
+    groups: ""
+    home: "/var/www/i.utn.se"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/i.pub') }}"
+    hosts:
+      - "babbage.utn.se"
 
 old_users: []
