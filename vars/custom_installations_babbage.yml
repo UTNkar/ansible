@@ -31,6 +31,11 @@ custom_installations:
     user: "iupak"
     template: "wordpress"
     create_log: yes
+  - fqdn: "i.utn.se"
+    web_root: "/var/www/i.utn.se"
+    user: "i"
+    template: "wordpress"
+    create_log: yes
 
 custom_databases:
   - database: "rallybot"
@@ -45,3 +50,5 @@ custom_databases:
     password: "{{ vault_e_password }}"
   - database: "iupak"
     password: "{{ vault_iupak_password }}"
+  - database: "i"
+    password: "{{ vault_i_password }}"
