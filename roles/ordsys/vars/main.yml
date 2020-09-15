@@ -24,8 +24,6 @@ media_root: "{{ pythonpath }}/ordsys/media/"
 process_name: "ordsys"
 asgi_module: ordsys.asgi:application
 
-npm_path: "/home/{{ user }}/.nvm/versions/node/v{{ node_version }}/bin/npm"
-
 website:
   - fqdn: "{{ fqdn }}"
     template: "ordsys"
