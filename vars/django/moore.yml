@@ -53,3 +53,5 @@ environment_variables:
   MELOS_URL: "{{ melos_url }}"
   MELOS_ORG_ID: "{{ melos_org_id }}"
   GOOGLE_API_KEY: "{{ google_api_key }}"
+  RECAPTCHA_PUBLIC_KEY: "{{ vault_recaptcha_public_key }}"
+  RECAPTCHA_PRIVATE_KEY: "{{ vault_recaptcha_private_key }}"
