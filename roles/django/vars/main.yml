@@ -1,6 +1,3 @@
-# the base path to install to. You should not need to change this.
-install_root: /var/www
-
 # any directories that need to be added to the PYTHONPATH.
 virtualenv: "{{ install_root }}/{{ project_name }}/venv"
 

@@ -2,3 +2,6 @@ run_nginx: yes
 process_group: "www-data"
 use_gunicorn: yes
 use_daphne: no
+
+# the base path to install to. You should not need to change this.
+install_root: /var/www
