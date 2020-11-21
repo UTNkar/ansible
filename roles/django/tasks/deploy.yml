@@ -90,7 +90,7 @@
     settings: "{{ django_settings }}"
   become_user: "{{process_user}}"
   environment: "{{ environment_variables }}"
-  when: project_name != 'ordsys'
+  when: project_name != 'ordsys' and project_name != 'forska'
 
 - name: Include gunicorn tasks
   include: gunicorn.yml

@@ -1,0 +1,9 @@
+---
+- hosts: django
+  vars_files:
+    - vars/passwords.yml
+    - vars/django/registration-system/forska.yml
+    - vars/django/registration-system/base.yml
+  become: yes
+  roles:
+    - role: django

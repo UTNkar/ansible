@@ -1,0 +1,30 @@
+install_root: "/var/www/registration-system"
+
+wsgi_module: registrationSystem.wsgi
+django_settings: registrationSystem.settings.production
+
+# the git repository URL for the project
+project_repo: https://github.com/UTNkar/registration-system.git
+
+db_user: registrationsystem
+db_password: "{{ vault_registrationsystem_forska_db_password }}"
+
+pythonpath: "{{ install_root }}/{{ project_name }}/registrationSystem"
+
+process_name: "registrationsystem"
+process_user: "registrationsystem"
+process_group: "www-data"
+
+website:
+  - fqdn: "{{ server_name }}"
+    template: "django"
+    static_root: "{{ static_root }}"
+    media_root: "{{ media_root }}"
+    process_name: "{{ process_name }}"
+
+environment_variables:
+  DJANGO_SETTINGS_MODULE: "{{ django_settings }}"
+  DJANGO_SECRET: "{{ django_secret_key }}"
+  DJANGO_DB_PASS: "{{ db_password }}"
+  DJANGO_DB_NAME: "{{ db_name }}"
+  SENTRY_DSN: "{{ sentry_dsn }}"

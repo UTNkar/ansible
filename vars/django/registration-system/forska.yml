@@ -1,0 +1,11 @@
+---
+# a unix path-friendly name (IE, no spaces or special characters)
+project_name: forska
+
+# the dns name or names (comma separated) for your server
+server_name: anmalan-forsranningen.utn.se
+
+db_name: registrationsystem-forska
+
+django_secret_key: "{{ vault_registrationsystem_forska_secret_key }}"
+sentry_dsn: "{{ vault_registrationsystem_forska_sentry_dsn }}"
