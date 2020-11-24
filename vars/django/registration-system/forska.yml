@@ -2,7 +2,7 @@
 # a unix path-friendly name (IE, no spaces or special characters)
 project_name: forska
 
-# the dns name or names (comma separated) for your server
+# the dns name or names (space separated) for your server
 server_name: anmalan-forsranningen.utn.se
 
 db_name: registrationsystem-forska

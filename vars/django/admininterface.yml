@@ -14,7 +14,7 @@ process_name: "admininterface"
 process_user: "admininterface"
 process_group: "www-data"
 
-# the dns name or names (comma separated) for your server
+# the dns name or names (space separated) for your server
 server_name: tdapp.utn.se
 
 db_name: admininterface
