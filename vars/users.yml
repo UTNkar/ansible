@@ -13,6 +13,16 @@ users:
       - "turing.utn.se"
       - "babbage.utn.se"
       - "moore.utn.se"
+  - name: "hgjothlen"
+    groups: "{{ admin_groups }}"
+    home: "/home/hgjothlen"
+    shell: "/bin/bash"
+    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/hgjothlen.pub') }}"
+    hosts:
+      - "turing.utn.se"
+      - "babbage.utn.se"
+      - "moore.utn.se"
+
   # Committees
   - name: "forsranningen"
     groups: ""
