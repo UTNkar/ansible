@@ -9,7 +9,7 @@ project_repo: https://github.com/UTNkar/registration-system.git
 db_user: registrationsystem
 db_password: "{{ vault_registrationsystem_forska_db_password }}"
 
-pythonpath: "{{ install_root }}/{{ project_name }}/registrationSystem"
+pythonpath: "{{ install_root }}/{{ project_name }}/src"
 
 process_name: "registrationsystem"
 process_user: "registrationsystem"
