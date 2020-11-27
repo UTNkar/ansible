@@ -10,7 +10,6 @@ setup.
 
 1. Install [ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 1. Clone this repository
-1. Install dependencies by running `ansible-galaxy install -r ansible-requirements.yml`
 1. Create a file called password.txt that contains the vault password
 1. In the folder host_vars, create a file for each of the servers, named according to the FQDN of the server (e.g., turing.utn.se), containing your sudo password for that host.
 
