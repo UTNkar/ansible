@@ -4,15 +4,6 @@ admin_groups: 'sudo'
 # Users
 users:
   # Administrators
-  - name: "dfehrm"
-    groups: "{{ admin_groups }}"
-    home: "/home/dfehrm"
-    shell: "/bin/bash"
-    ssh_pubkey: "{{ lookup('file', 'files/pubkeys/dfehrm.pub') }}"
-    hosts:
-      - "turing.utn.se"
-      - "babbage.utn.se"
-      - "moore.utn.se"
   - name: "hgjothlen"
     groups: "{{ admin_groups }}"
     home: "/home/hgjothlen"
@@ -166,4 +157,4 @@ users:
     hosts:
       - "babbage.utn.se"
 
-old_users: []
+old_users: ["dfehrm"]
